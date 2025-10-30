@@ -1,0 +1,700 @@
+﻿/* ================================
+   EXPERIENCE - GIT LOG VISUALIZATION
+   ================================ */
+
+.exp-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #0B0F19 0%, #0a0e13 100%);
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Background grid */
+.exp-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(139, 92, 246, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.exp-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================
+   GIT TERMINAL
+   ================================ */
+
+.git-terminal {
+  background: #0f1419;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 8px;
+  margin-bottom: 3rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.git-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: #1a1f2e;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.git-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.git-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.git-dots span:nth-child(1) { background: #ff5f56; }
+.git-dots span:nth-child(2) { background: #ffbd2e; }
+.git-dots span:nth-child(3) { background: #27c93f; }
+
+.git-title {
+  font-size: 0.75rem;
+  color: #64748b;
+  flex: 1;
+  text-align: center;
+}
+
+.git-button {
+  padding: 4px 12px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 4px;
+  color: #8b5cf6;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.git-button:hover:not(:disabled) {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+}
+
+.git-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.git-body {
+  padding: 15px;
+  min-height: 120px;
+  max-height: 250px;
+  overflow-y: auto;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  scrollbar-width: thin;
+  scrollbar-color: #8b5cf6 #0f1419;
+}
+
+.git-line {
+  margin-bottom: 4px;
+  white-space: pre;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.git-line.commit-line {
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.git-cursor {
+  display: inline-block;
+  color: #8b5cf6;
+  animation: blink-cursor 1s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ================================
+   HEADER
+   ================================ */
+
+.exp-header {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.exp-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 6px 16px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #A78BFA;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.5rem;
+}
+
+.commits-count {
+  padding: 2px 8px;
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.exp-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #A78BFA;
+  margin-bottom: 0.75rem;
+  text-shadow: 
+    0 0 20px rgba(139, 92, 246, 0.5),
+    0 0 40px rgba(139, 92, 246, 0.3);
+}
+
+.exp-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: #94a3b8;
+}
+
+/* ================================
+   GIT GRAPH TIMELINE
+   ================================ */
+
+.git-graph {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.git-commit {
+  display: flex;
+  gap: 2rem;
+  position: relative;
+}
+
+.git-line-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 60px;
+  flex-shrink: 0;
+}
+
+.git-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 2px solid #10b981;
+  border-radius: 50%;
+  color: #10b981;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
+.head-label {
+  font-size: 0.5rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  position: absolute;
+  bottom: -20px;
+  white-space: nowrap;
+}
+
+.merge-icon {
+  padding: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 2px solid #8b5cf6;
+  border-radius: 50%;
+  color: #8b5cf6;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.git-connector {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(180deg, #8b5cf6, transparent);
+  margin: -10px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================
+   COMMIT CARD
+   ================================ */
+
+.commit-card {
+  flex: 1;
+  background: #1E293B;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-left: 3px solid #8b5cf6;
+  border-radius: 10px;
+  padding: 0;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.git-commit.active .commit-card {
+  border-left-color: #10b981;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+}
+
+.commit-card:hover {
+  transform: translateX(8px);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+}
+
+/* Commit Header */
+.commit-header {
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.commit-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.commit-hash-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+}
+
+.commit-hash {
+  color: #a78bfa;
+  font-weight: 700;
+}
+
+.branch-badge {
+  padding: 2px 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 4px;
+  color: #8b5cf6;
+  font-size: 0.7rem;
+}
+
+.branch-badge.active {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-badge.active {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+.status-badge.merged {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: #a78bfa;
+}
+
+/* Commit Message */
+.commit-message {
+  margin-bottom: 1rem;
+}
+
+.commit-message h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3rem;
+  color: #F8FAFC;
+  margin: 0 0 0.75rem 0;
+}
+
+.commit-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.commit-details span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.company-name {
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.type-tag {
+  padding: 2px 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.expand-toggle {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: #a78bfa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.expand-toggle:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+/* Diff Preview */
+.diff-preview {
+  padding: 0 1.5rem 1rem;
+}
+
+.diff-stats {
+  display: flex;
+  gap: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+}
+
+.additions {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.achievements-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+/* Commit Preview */
+.commit-preview {
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.preview-line {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.line-prefix {
+  color: #10b981;
+  font-weight: 700;
+  min-width: 15px;
+}
+
+.line-content {
+  color: #cbd5e1;
+  flex: 1;
+}
+
+/* Expanded Content */
+.commit-expanded {
+  overflow: hidden;
+}
+
+.diff-section {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.diff-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #a78bfa;
+  margin-bottom: 1rem;
+}
+
+.diff-line {
+  display: flex;
+  gap: 12px;
+  padding: 6px 12px;
+  margin-bottom: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
+
+.diff-line.addition {
+  border-left: 2px solid #10b981;
+}
+
+.diff-line .line-prefix {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.diff-line .line-content {
+  color: #cbd5e1;
+}
+
+/* Achievements */
+.diff-section.achievements {
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.achievement-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #fbbf24;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.achievement-badge:hover {
+  background: rgba(245, 158, 11, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+
+.achievement-icon {
+  color: #f59e0b;
+  flex-shrink: 0;
+}
+
+/* Commit Stats */
+.commit-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+}
+
+.stat-item svg {
+  color: #8b5cf6;
+}
+
+/* ================================
+   REPOSITORY STATS
+   ================================ */
+
+.repo-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: #8b5cf6;
+  background: rgba(30, 41, 59, 0.8);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+}
+
+.stat-card svg {
+  color: #8b5cf6;
+  flex-shrink: 0;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #a78bfa;
+}
+
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 1024px) {
+  .repo-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .exp-section {
+    padding: 4rem 1rem;
+  }
+
+  .exp-title {
+    font-size: 2.5rem;
+  }
+
+  .git-commit {
+    gap: 1rem;
+  }
+
+  .git-line-visual {
+    width: 40px;
+  }
+
+  .git-head,
+  .merge-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .git-head svg,
+  .merge-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .commit-header {
+    padding: 1rem;
+  }
+
+  .commit-message h3 {
+    font-size: 1.1rem;
+  }
+
+  .commit-details {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .expand-toggle {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .repo-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .git-terminal {
+    display: none;
+  }
+}
+
+/* ================================
+   PERFORMANCE
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .git-cursor,
+  .expand-toggle,
+  .achievement-badge {
+    animation: none !important;
+    transition: none !important;
+  }
+}

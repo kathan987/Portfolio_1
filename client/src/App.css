@@ -1,0 +1,229 @@
+/* ============================================
+   APP-LEVEL MODE TRANSITIONS & STYLES
+   ============================================ */
+
+/* ===== RESET ===== */
+/* At the top of App.css */
+html, body {
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  position: relative;
+}
+
+.app-container {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important; /* ✅ NO PADDING */
+  overflow-x: hidden;
+}
+
+/* ===== APP CONTAINER ===== */
+.app-container {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Professional Mode */
+.app-container.mode-professional {
+  background: linear-gradient(135deg, #0b1220 0%, #1e293b 100%);
+  color: #ffffff;
+}
+
+/* Personal Mode */
+.app-container.mode-personal {
+  background: linear-gradient(135deg, #FFFCF5 0%, #FFF8F0 100%);
+  color: #0B0F19;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ===== MODE TRANSITION OVERLAY ===== */
+.mode-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+  animation: fade-in 0.2s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.mode-transition-content {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.mode-transition-terminal {
+  background: #1a1f2e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  animation: scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.terminal-window {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #0f1419;
+  border-bottom: 1px solid #2a3444;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+
+.terminal-title {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.terminal-body {
+  padding: 24px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.terminal-line {
+  margin-bottom: 8px;
+  animation: fade-in-line 0.3s ease forwards;
+  opacity: 0;
+}
+
+.terminal-line:nth-child(1) { animation-delay: 0s; }
+.terminal-line:nth-child(2) { animation-delay: 0.1s; }
+.terminal-line:nth-child(3) { animation-delay: 0.2s; }
+.terminal-line:nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes fade-in-line {
+  to { opacity: 1; }
+}
+
+.prompt {
+  color: #00ff88;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.terminal-line.success {
+  color: #10b981;
+  font-weight: 700;
+}
+
+/* ===== PAGE LOADER ===== */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: #0a0e13;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+}
+
+.loader-content {
+  text-align: center;
+}
+
+.loader-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(0, 255, 136, 0.1);
+  border-top-color: #00ff88;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loader-text {
+  color: #00ff88;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .app-container,
+  .mode-transition-terminal,
+  .terminal-line,
+  .loader-spinner {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .mode-transition-content {
+    padding: 16px;
+    max-width: 90%;
+  }
+  
+  .terminal-body {
+    padding: 16px;
+    font-size: 0.8rem;
+  }
+}

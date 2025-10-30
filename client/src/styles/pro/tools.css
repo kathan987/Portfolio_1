@@ -1,0 +1,503 @@
+﻿/* ================================
+   TOOLS SECTION - NOC DASHBOARD
+   Enhanced Spacing & Sizing
+   ================================ */
+
+.tools-section {
+  padding: 4rem 2rem; /* 🔧 REDUCED from 6rem - better spacing */
+  background: #0B0F19;
+  position: relative;
+  min-height: auto; /* 🔧 REMOVED min-height: 100vh */
+}
+
+.tools-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5;
+}
+
+.tools-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* ================================
+   HEADER - REDUCED SPACING
+   ================================ */
+
+.tools-header {
+  margin-bottom: 3rem; /* 🔧 REDUCED from 3rem */
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem; /* 🔧 REDUCED from 1.5rem */
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 6px 14px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 6px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10B981;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.status-text {
+  text-align: left;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #10B981;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.timestamp {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: #64748B;
+  padding: 6px 14px;
+  background: rgba(100, 116, 139, 0.1);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 6px;
+}
+
+.tools-title {
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 3rem; 
+  font-weight: 700;
+  color: #00D9FF;
+  margin-bottom: 0.5rem;
+  letter-spacing: -1px;
+  text-shadow: 
+    0 0 10px rgba(0, 217, 255, 0.8),
+    0 0 20px rgba(0, 217, 255, 0.6),
+    0 0 30px rgba(0, 217, 255, 0.4);
+}
+
+.tools-subtitle {
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem; /* 🔧 REDUCED from 1rem */
+  color: #64748B;
+  line-height: 1.5;
+}
+
+/* ================================
+   TAB NAVIGATION - TIGHTER
+   ================================ */
+
+.tab-navigation {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem; /* 🔧 REDUCED from 2rem */
+  border-bottom: 2px solid #1E293B;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  flex: 1;
+  min-width: 150px; /* 🔧 ADDED for better wrapping */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.4rem; /* 🔧 REDUCED from 1rem 1.5rem */
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-button::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--tab-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.tab-button:hover::before {
+  transform: scaleX(0.5);
+}
+
+.tab-button.active::before {
+  transform: scaleX(1);
+}
+
+.tab-button.active {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tab-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.tab-button.active .tab-label {
+  color: #F8FAFC;
+}
+
+.tab-count {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  padding: 3px 10px;
+  background: rgba(71, 85, 105, 0.3);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.tab-button.active .tab-count {
+  background: var(--tab-color);
+  color: #0B0F19;
+}
+
+/* ================================
+   TOOLS GRID - OPTIMIZED SPACING
+   ================================ */
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem; /* 🔧 REDUCED from 3rem */
+}
+
+.tool-card {
+  background: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 1.2rem;
+  transition: all 0.3s ease;
+  animation: fade-in 0.4s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tool-card:hover {
+  border-color: #3B82F6;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
+}
+
+.tool-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.tool-icon {
+  font-size: 2.2rem;
+}
+
+.tool-status {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+
+.tool-status.active {
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.tool-status.standby {
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-dot-small {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.tool-card-body {
+  margin-bottom: 1rem;
+}
+
+.tool-name {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+
+.tool-description {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  color: #94A3B8;
+  line-height: 1.45;
+}
+
+.tool-card-footer {
+  padding-top: 0.85rem;
+  border-top: 1px solid #334155;
+}
+
+.tool-metrics {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.metric-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #10B981;
+}
+
+.metric-divider {
+  width: 1px;
+  height: 26px;
+  background: #334155;
+}
+
+/* ================================
+   SUMMARY BAR - REDUCED PADDING
+   ================================ */
+
+.summary-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1.25rem; /* 🔧 REDUCED from 1.5rem */
+  background: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.summary-icon {
+  font-size: 1.8rem;
+}
+
+.summary-data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.summary-value {
+  font-family: 'Courier New', monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  line-height: 1;
+}
+
+.summary-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 46px;
+  background: #334155;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 1024px) {
+  .tools-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  .summary-bar {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .summary-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .tools-section {
+    padding: 3rem 1rem; /* 🔧 REDUCED */
+  }
+
+  .tools-title {
+    font-size: 2rem; /* 🔧 REDUCED */
+  }
+
+  .tools-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .header-top {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .tab-navigation {
+    flex-direction: column;
+    gap: 0;
+    border-bottom: none;
+  }
+
+  .tab-button {
+    border-bottom: 1px solid #1E293B;
+    border-left: 3px solid transparent;
+    min-width: auto;
+  }
+
+  .tab-button::before {
+    bottom: auto;
+    left: -3px;
+    top: 0;
+    right: auto;
+    width: 3px;
+    height: 100%;
+    transform: scaleY(0);
+  }
+
+  .tab-button:hover::before,
+  .tab-button.active::before {
+    transform: scaleY(1);
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-bar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tool-card {
+    padding: 1rem;
+  }
+
+  .tool-icon {
+    font-size: 2rem;
+  }
+
+  .tool-name {
+    font-size: 1rem;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+.tab-button:focus-visible,
+.tool-card:focus-within {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+/* ================================
+   PERFORMANCE
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-card,
+  .status-dot {
+    animation: none !important;
+  }
+
+  .tab-button,
+  .tool-card {
+    transition: none !important;
+  }
+}

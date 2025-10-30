@@ -1,0 +1,513 @@
+﻿/* ================================
+   MARQUEE SECTION - ENHANCED v2.0
+   Added: Better parallax, enhanced card interactions, glow effects
+   ================================ */
+
+.marquee-section {
+  padding: 120px 0;
+  background: linear-gradient(
+    180deg,
+    #FFF8F0 0%,
+    #FFFCF5 50%,
+    #FFF8F0 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+}
+
+/* ================================
+   HEADER - ENHANCED
+   ================================ */
+
+.marquee-header {
+  max-width: 1200px;
+  margin: 0 auto 80px;
+  padding: 0 40px;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-label {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ff5900;
+  margin-bottom: 2rem;
+  padding: 8px 20px;
+  background: rgba(255, 91, 0, 0.08);
+  border-left: 3px solid #FF5B00;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.header-label:hover {
+  background: rgba(255, 91, 0, 0.12);
+  transform: scale(1.05);
+}
+
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: #0B0F19;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.header-title .title-line {
+  display: block;
+}
+
+.header-title .accent {
+  font-style: italic;
+  color: #FF5B00;
+}
+
+.header-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ================================
+   MARQUEE CONTAINER
+   ================================ */
+
+.marquee-container {
+  position: relative;
+  margin-bottom: 80px;
+}
+
+.marquee-track {
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+  position: relative;
+}
+
+.marquee-track.top-track {
+  margin-bottom: 40px;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 40px;
+  will-change: transform;
+}
+
+/* ================================
+   MARQUEE CARDS - ENHANCED
+   ================================ */
+
+.marquee-card {
+  flex-shrink: 0;
+  width: 450px;
+  height: 300px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+}
+
+.card-image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #e5e7eb;
+  border-radius: 2px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ✅ ENHANCED: 3D lift with parallax */
+.marquee-card:hover {
+  transform: translateY(-12px) scale(1.03) rotateY(2deg);
+}
+
+.marquee-card:hover .card-image-wrapper {
+  box-shadow: 
+    0 24px 72px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(255, 91, 0, 0.2);
+}
+
+.card-image-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* ✅ ENHANCED: Deeper zoom */
+.marquee-card:hover .card-image-inner img {
+  transform: scale(1.08) translateZ(20px);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(11, 15, 25, 0.4) 50%,
+    rgba(11, 15, 25, 0.85) 100%
+  );
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+.marquee-card:hover .card-overlay {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(11, 15, 25, 0.5) 50%,
+    rgba(11, 15, 25, 0.95) 100%
+  );
+}
+
+.card-info {
+  position: absolute;
+  inset: 0;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 2;
+  color: #fff;
+}
+
+.card-category {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.marquee-card:hover .card-category {
+  color: rgba(255, 143, 0, 1);
+  transform: translateY(-2px);
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.marquee-card:hover .card-title {
+  transform: translateY(-6px);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-arrow {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ✅ NEW: Glow effect on hover */
+.card-arrow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #FF5B00, #FF8F50);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.marquee-card:hover .card-arrow::before {
+  opacity: 1;
+}
+
+.marquee-card:hover .card-arrow {
+  border-color: #FF5B00;
+  transform: translate(6px, -6px) scale(1.1);
+  box-shadow: 0 6px 24px rgba(255, 91, 0, 0.4);
+}
+
+.card-arrow svg {
+  stroke-width: 2.5;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.marquee-card:hover .card-arrow svg {
+  transform: translateX(3px);
+}
+
+.card-year {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0B0F19;
+  z-index: 3;
+  border-left: 3px solid #FF5B00;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.marquee-card:hover .card-year {
+  background: #FF5B00;
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(255, 91, 0, 0.3);
+}
+
+/* ================================
+   GRADIENT FADES
+   ================================ */
+
+.marquee-fade {
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.marquee-fade-left {
+  left: 0;
+  background: linear-gradient(90deg, #FFF8F0 0%, transparent 100%);
+}
+
+.marquee-fade-right {
+  right: 0;
+  background: linear-gradient(90deg, transparent 0%, #FFF8F0 100%);
+}
+
+/* ================================
+   CTA LINK - ENHANCED
+   ================================ */
+
+.marquee-cta {
+  text-align: center;
+  padding: 0 40px;
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0B0F19;
+  text-decoration: none;
+  padding: 18px 36px;
+  background: transparent;
+  border: 2px solid #0B0F19;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cta-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #0B0F19;
+  transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: -1;
+}
+
+.cta-link:hover::before {
+  left: 0;
+}
+
+.cta-link:hover {
+  color: #FFF8F0;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(11, 15, 25, 0.25);
+}
+
+.cta-link svg {
+  transition: transform 0.3s ease;
+}
+
+.cta-link:hover svg {
+  transform: translateX(6px);
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 1024px) {
+  .marquee-card {
+    width: 380px;
+    height: 260px;
+  }
+
+  .card-title {
+    font-size: 2rem;
+  }
+
+  .card-info {
+    padding: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .marquee-section {
+    padding: 100px 0;
+  }
+
+  .marquee-header {
+    margin-bottom: 60px;
+    padding: 0 20px;
+  }
+
+  .header-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+  }
+
+  .header-description {
+    font-size: 1.1rem;
+  }
+
+  .marquee-card {
+    width: 320px;
+    height: 220px;
+  }
+
+  .card-title {
+    font-size: 1.75rem;
+  }
+
+  .card-info {
+    padding: 28px;
+  }
+
+  .marquee-track.top-track {
+    margin-bottom: 32px;
+  }
+
+  .marquee-container {
+    margin-bottom: 60px;
+  }
+
+  .cta-link {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 32px;
+  }
+
+  .marquee-fade {
+    width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marquee-section {
+    padding: 80px 0;
+  }
+
+  .marquee-card {
+    width: 280px;
+    height: 200px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .card-info {
+    padding: 24px;
+  }
+
+  .card-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .marquee-fade {
+    width: 60px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-content {
+    animation: none !important;
+  }
+
+  .marquee-card,
+  .card-image-inner img,
+  .card-title,
+  .card-arrow,
+  .cta-link {
+    transition: none;
+  }
+
+  .marquee-card:hover {
+    transform: none;
+  }
+}

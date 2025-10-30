@@ -1,0 +1,445 @@
+﻿/* ================================
+   SERVICES SECTION - ENHANCED v2.0
+   Added: Better orbital animations, planet trails, enhanced stars
+   ================================ */
+
+.services-section {
+  padding: 10rem 0;
+  background: linear-gradient(to bottom, #FFF8ED 0%, #FFFCF5 50%, #FFF8ED 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.services-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 20% 50%, rgba(255, 91, 0, 0.03) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 6rem;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.services-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #0B0F19;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.services-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #64748b;
+  font-weight: 400;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.service-universe {
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(11, 15, 25, 0.06);
+  border-radius: 24px;
+  padding: 3rem;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.service-universe:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 91, 0, 0.3);
+  transform: translateY(-8px);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 91, 0, 0.1);
+}
+
+.service-universe.active {
+  background: rgba(255, 255, 255, 1);
+}
+
+.universe-canvas {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================================
+   CENTRAL STAR - ENHANCED
+   ================================ */
+
+.central-star {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.star-icon {
+  font-size: 2.5rem;
+  color: #FF5B00;
+  position: relative;
+  z-index: 2;
+  animation: star-pulse 3s ease-in-out infinite,
+             star-rotate 20s linear infinite;
+}
+
+@keyframes star-pulse {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scale(1.15) rotate(180deg); 
+    opacity: 0.85; 
+  }
+}
+
+@keyframes star-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.star-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(255, 91, 0, 0.3), transparent 70%);
+  border-radius: 50%;
+  filter: blur(20px);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    opacity: 0.6; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.3); 
+  }
+}
+
+/* ================================
+   ORBITAL PATHS - ENHANCED
+   ================================ */
+
+.orbit {
+  position: absolute;
+  border: 1px solid rgba(11, 15, 25, 0.06);
+  border-radius: 50%;
+  animation: orbit-rotate linear infinite;
+  transform-origin: center;
+}
+
+/* ✅ NEW: Dashed trail effect */
+.orbit::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px dashed rgba(255, 91, 0, 0.15);
+  border-radius: 50%;
+  animation: orbit-pulse 4s ease-in-out infinite;
+}
+
+@keyframes orbit-pulse {
+  0%, 100% { 
+    opacity: 0.3; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.6; 
+    transform: scale(1.02);
+  }
+}
+
+@keyframes orbit-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ================================
+   PLANETS - ENHANCED WITH TRAILS
+   ================================ */
+
+.planet {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  animation: planet-counter-rotate linear infinite;
+  box-shadow: 0 0 20px currentColor;
+}
+
+/* ✅ NEW: Comet trail behind planets */
+.planet::before {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(to left, currentColor, transparent);
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  filter: blur(2px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@keyframes planet-counter-rotate {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(-360deg); }
+}
+
+/* ================================
+   PARTICLE FIELD - ENHANCED
+   ================================ */
+
+.particle-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 91, 0, 0.4);
+  border-radius: 50%;
+  animation: particle-float ease-in-out infinite;
+  box-shadow: 0 0 4px currentColor;
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+}
+
+/* ================================
+   SERVICE CONTENT
+   ================================ */
+
+.service-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+}
+
+.service-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0B0F19;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+  transition: all 0.3s ease;
+}
+
+.service-universe:hover .service-title {
+  color: #FF5B00;
+  transform: translateY(-2px);
+}
+
+.service-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 2rem;
+}
+
+.service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 2px solid #0B0F19;
+  border-radius: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0B0F19;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #0B0F19;
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: -1;
+}
+
+.service-link:hover::before {
+  transform: translateX(0);
+}
+
+.service-link:hover {
+  color: #FFFCF5;
+  transform: translateX(4px);
+}
+
+.service-link svg {
+  transition: transform 0.3s ease;
+}
+
+.service-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .universe-canvas {
+    height: 240px;
+  }
+
+  .central-star {
+    width: 70px;
+    height: 70px;
+  }
+
+  .star-icon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-section {
+    padding: 6rem 0;
+  }
+
+  .services-header {
+    margin-bottom: 4rem;
+  }
+
+  .services-title {
+    font-size: 3rem;
+  }
+
+  .services-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .service-universe {
+    padding: 2rem;
+    min-height: 350px;
+  }
+
+  .universe-canvas {
+    height: 200px;
+  }
+
+  .service-title {
+    font-size: 1.75rem;
+  }
+
+  .service-description {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-title {
+    font-size: 2.5rem;
+  }
+
+  .service-universe {
+    padding: 1.5rem;
+  }
+
+  .universe-canvas {
+    height: 180px;
+  }
+
+  .central-star {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit,
+  .orbit::after,
+  .planet,
+  .planet::before,
+  .star-icon,
+  .star-glow,
+  .particle,
+  .glow-pulse,
+  .star-pulse,
+  .star-rotate,
+  .orbit-rotate,
+  .orbit-pulse,
+  .planet-counter-rotate,
+  .particle-float {
+    animation: none !important;
+  }
+  
+  .service-link:hover,
+  .service-universe:hover {
+    transform: none;
+  }
+}

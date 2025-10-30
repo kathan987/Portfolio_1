@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <!-- ✅ MOBILE-OPTIMIZED VIEWPORT -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+    
+    <!-- ✅ iOS Safari Specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- ✅ Prevent Zoom on Form Inputs (iOS) -->
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- ✅ Fonts: Inter + JetBrains Mono + Playfair Display + Cormorant Garamond -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- SEO Meta Tags -->
+    <title>Kathan Thaker - Systems Engineer & Creative Designer</title>
+    <meta name="description" content="Computer Systems Technician specializing in IT Support, Network Engineering & Data Centers. Creative Designer crafting digital experiences.">
+    <meta name="keywords" content="IT Support, Network Engineer, Data Center, Web Designer, Systems Technician, Creative Developer, Portfolio">
+    <meta name="author" content="Kathan Thaker">
+    
+    <!-- ✅ Dynamic Theme Color (will be updated by app) -->
+    <meta name="theme-color" content="#0B1118" id="theme-color-meta" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Kathan Thaker - Systems & Stories">
+    <meta property="og:description" content="Where technical precision meets creative impossibility">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/og-image.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kathan Thaker - Portfolio">
+    <meta name="twitter:description" content="Systems Engineer & Creative Designer">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
+    <!-- ✅ CRITICAL CSS - MOBILE OPTIMIZED -->
+    <style>
+      /* ===== RESET ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html {
+        overflow-x: hidden;
+        width: 100%;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      
+      body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+        background: #0B1118;
+        color: #fff;
+        font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      /* ✅ iOS Safe Area Support */
+      @supports (-webkit-touch-callout: none) {
+        body {
+          min-height: -webkit-fill-available;
+        }
+      }
+      
+      #root {
+        min-height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+        position: relative;
+      }
+      
+      /* ===== INITIAL LOADER ===== */
+      .initial-loader {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, #0a0e13 0%, #0f1419 100%);
+        z-index: 99999;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+      
+      .initial-loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      
+      .loader-content {
+        text-align: center;
+      }
+      
+      .initial-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(0, 255, 136, 0.1);
+        border-top-color: #00ff88;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      
+      .loader-text {
+        color: #00ff88;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        opacity: 0.8;
+      }
+      
+      /* ===== MOBILE OPTIMIZATION ===== */
+      @media (max-width: 968px) {
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        body {
+          font-size: 16px; /* Prevent iOS zoom on input focus */
+        }
+        
+        .initial-spinner {
+          width: 40px;
+          height: 40px;
+        }
+        
+        .loader-text {
+          font-size: 0.8rem;
+        }
+      }
+      
+      /* ===== PREVENT HORIZONTAL SCROLL ===== */
+      html, body {
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+      
+      /* ===== DISABLE PULL-TO-REFRESH ON CHROME MOBILE ===== */
+      body {
+        overscroll-behavior-y: contain;
+      }
+      
+      /* ===== SELECTION STYLING ===== */
+      ::selection {
+        background: #00ff88;
+        color: #0a0e13;
+      }
+      
+      ::-moz-selection {
+        background: #00ff88;
+        color: #0a0e13;
+      }
+      
+      /* ===== SCROLLBAR STYLING ===== */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: #0f1419;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #00ff88, #00d4ff);
+        border-radius: 5px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: #00ff88;
+      }
+      
+      /* ===== FOCUS VISIBLE ===== */
+      *:focus-visible {
+        outline: 2px solid #00ff88;
+        outline-offset: 2px;
+      }
+      
+      /* ===== PREVENT TEXT INFLATION ON iOS ===== */
+      body {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="initial-loader">
+        <div class="loader-content">
+          <div class="initial-spinner"></div>
+          <p class="loader-text">Loading Portfolio...</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ✅ Remove loader once React loads -->
+    <script>
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loader = document.querySelector('.initial-loader');
+          if (loader) {
+            loader.classList.add('hidden');
+            setTimeout(() => loader.remove(), 500);
+          }
+        }, 500);
+      });
+    </script>
+    
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

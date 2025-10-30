@@ -1,0 +1,41 @@
+/* ================================
+   CARD SWAP ANIMATION
+   Clean & Smooth
+   ================================ */
+
+.card-swap-container {
+  position: relative;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  will-change: transform;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 12px;
+  transition: box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card:hover {
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+/* Prevent text selection during animation */
+.card * {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* GPU acceleration */
+.card-swap-container * {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}

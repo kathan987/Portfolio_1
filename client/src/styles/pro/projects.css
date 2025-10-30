@@ -1,0 +1,2548 @@
+﻿/* ================================
+   PROJECTS SECTION - DATA CENTER INSPIRED
+   Enhanced with HVAC Monitoring & New Colors
+   WITH ALL TEXT CUTTING FIXES
+   ================================ */
+
+.projects-section {
+  background: linear-gradient(135deg, #0a0e13 0%, #0f1419 50%, #0a0e13 100%);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Grid Background */
+.projects-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(139, 92, 246, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.5;
+  animation: gridMove 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+
+.projects-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================
+   HEADER
+   ================================ */
+
+.projects-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.projects-header h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #e5efff 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
+}
+
+.projects-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899, #06b6d4);
+  border-radius: 999px;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+}
+
+/* ================================
+   FILTER BUTTONS - ENHANCED
+   ================================ */
+
+.projects-filters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.filter-btn-pro {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(139, 92, 246, 0.2);
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-btn-pro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.filter-btn-pro:hover::before,
+.filter-btn-pro.active::before {
+  opacity: 0.15;
+}
+
+.filter-btn-pro:hover,
+.filter-btn-pro.active {
+  border-color: #8b5cf6;
+  color: #a78bfa;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+}
+
+.filter-btn-pro svg {
+  flex-shrink: 0;
+}
+
+.filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ec4899;
+  transition: all 0.3s ease;
+}
+
+.filter-btn-pro:hover .filter-count,
+.filter-btn-pro.active .filter-count {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3));
+  transform: scale(1.1);
+}
+
+/* ================================
+   MAIN LAYOUT
+   ================================ */
+
+.projects-layout {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  gap: 50px;
+  align-items: start;
+  position: relative;
+}
+
+/* ================================
+   SERVER RACK CONTAINER - FIXED
+   ================================ */
+
+.server-rack-container {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+
+/* Dynamic rack heights */
+.server-rack {
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  border: 2px solid rgba(139, 92, 246, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 
+    0 0 60px rgba(139, 92, 246, 0.15),
+    inset 0 0 30px rgba(0, 0, 0, 0.5);
+  min-height: 850px;
+  max-height: 900px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Normal state (fewer projects) */
+.server-rack.normal {
+  min-height: 850px;
+  max-height: 850px;
+}
+
+/* Expanded state (many projects) */
+.server-rack.expanded {
+  min-height: 900px;
+  max-height: 950px;
+}
+
+/* When all 8+ projects are shown */
+.server-rack:has(.server-cards > :nth-child(8)) {
+  min-height: 900px;
+}
+
+/* Rack Header */
+.rack-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 25px;
+  background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+  border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+  flex-shrink: 0;
+}
+
+.rack-title-section {
+  flex: 1;
+}
+
+.rack-header h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e5efff;
+  margin: 0 0 4px 0;
+}
+
+.rack-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ================================
+   🌡️ HVAC MONITORING WIDGET - RESPONSIVE
+   ================================ */
+
+.hvac-monitor {
+  margin: 15px;
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(6, 182, 212, 0.02) 100%);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+/* Compact mode when many projects */
+.server-rack:has(.server-cards > :nth-child(8)) .hvac-monitor {
+  padding: 12px 15px;
+}
+
+.server-rack:has(.server-cards > :nth-child(8)) .hvac-metrics {
+  gap: 8px;
+}
+
+.hvac-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.hvac-icon {
+  color: #06b6d4;
+  animation: windSpin 4s linear infinite;
+}
+
+@keyframes windSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.hvac-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #06b6d4;
+  letter-spacing: 0.5px;
+}
+
+.hvac-status-led {
+  width: 8px;
+  height: 8px;
+  background: #06b6d4;
+  border-radius: 50%;
+  margin-left: auto;
+}
+
+.hvac-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hvac-metric {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hvac-data {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hvac-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hvac-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.hvac-bar {
+  width: 100px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hvac-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: all 0.5s ease;
+  box-shadow: 0 0 10px currentColor;
+  position: relative;
+}
+
+.hvac-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Cooling Animation */
+.cooling-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.air-particle {
+  position: absolute;
+  width: 3px;
+  height: 8px;
+  background: linear-gradient(180deg, transparent, #06b6d4, transparent);
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+/* ================================
+   SERVER CARDS - FIXED SCROLLING
+   ================================ */
+
+.server-cards {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #8b5cf6 #1a1f2e;
+  min-height: 400px;
+  max-height: 550px;
+  scroll-behavior: smooth;
+  will-change: scroll-position;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Expanded state for many projects */
+.server-rack.expanded .server-cards {
+  max-height: 600px;
+}
+
+.server-cards::-webkit-scrollbar {
+  width: 6px;
+}
+
+.server-cards::-webkit-scrollbar-track {
+  background: #1a1f2e;
+  border-radius: 3px;
+}
+
+.server-cards::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b5cf6, #ec4899);
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* Add padding at the bottom */
+.server-cards::after {
+  content: '';
+  display: block;
+  height: 10px;
+  flex-shrink: 0;
+}
+
+/* ================================
+   SERVER CARD - TEXT OVERFLOW FIXED
+   ================================ */
+
+.server-card {
+  background: linear-gradient(90deg, #1a1f2e 0%, #212734 100%);
+  border: 2px solid rgba(139, 92, 246, 0.15);
+  border-radius: 12px;
+  padding: 16px 18px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  min-height: 80px;
+  flex-shrink: 0;
+}
+
+/* Compact mode for many projects */
+@container (max-height: 600px) {
+  .server-card {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+}
+
+.server-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, transparent, var(--card-color, #8b5cf6), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 12px 0 0 12px;
+}
+
+.server-card.hovered {
+  background: linear-gradient(90deg, #1f2435 0%, #262b3a 100%);
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: translateX(8px);
+}
+
+.server-card.hovered::before {
+  opacity: 1;
+}
+
+.server-card.selected {
+  background: linear-gradient(90deg, #1f2838 0%, #2a3548 100%);
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 
+    0 0 30px rgba(139, 92, 246, 0.2),
+    inset 0 0 20px rgba(139, 92, 246, 0.05);
+}
+
+.server-card.selected::before {
+  opacity: 1;
+  animation: lockPulse 2s ease-in-out infinite;
+}
+
+@keyframes lockPulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Status LEDs - Now Colorful! */
+.server-leds {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.led {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px currentColor;
+  position: relative;
+}
+
+.led::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: inherit;
+  filter: blur(4px);
+  opacity: 0.5;
+}
+
+/* Server Info - FIXED TEXT CUTTING */
+.server-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Server Title - Prevent Text Cutting - WITH STANDARD PROPERTY */
+.server-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e5efff;
+  margin: 0;
+  line-height: 1.3;
+  /* Better text handling */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2; /* ✅ Standard property for compatibility */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  white-space: normal;
+  max-width: 100%;
+}
+/* Compact mode for title */
+@container (max-height: 600px) {
+  .server-title {
+    font-size: 0.9rem;
+  }
+}
+
+/* Server Chips - Better Wrapping */
+.server-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.server-chip {
+  padding: 3px 8px;
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Compact mode for chips */
+@container (max-height: 600px) {
+  .server-chip {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+}
+
+.server-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.server-chip.size {
+  color: #64748b;
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
+/* Selection Indicator - Smaller */
+.selection-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.selection-indicator svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Card Glow */
+.card-glow {
+  position: absolute;
+  inset: -3px;
+  border-radius: 12px;
+  filter: blur(20px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Data Flow Indicator */
+.data-flow-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  animation: dataFlow 1s ease-in-out infinite;
+}
+
+@keyframes dataFlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Rack Footer */
+.rack-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+  border-top: 2px solid rgba(139, 92, 246, 0.2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.footer-separator {
+  width: 1px;
+  height: 16px;
+  background: rgba(139, 92, 246, 0.3);
+  margin: 0 5px;
+}
+
+.power-draw {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+/* ================================
+   DATA PACKETS ANIMATION
+   ================================ */
+
+.data-packets {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.data-packet {
+  position: absolute;
+  left: -2px;
+  width: 4px;
+  height: 12px;
+  border-radius: 2px;
+  filter: blur(0.5px);
+}
+
+/* ================================
+   MONITOR DISPLAY
+   ================================ */
+
+.monitor-container {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+
+.monitor-frame {
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  border: 3px solid #2a3444;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+  box-shadow: 
+    0 0 60px rgba(139, 92, 246, 0.15),
+    inset 0 0 30px rgba(0, 0, 0, 0.6);
+  height: 850px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Monitor Header */
+.monitor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+  border-bottom: 2px solid #2a3444;
+}
+
+.monitor-brand {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 2px;
+}
+
+.monitor-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.close-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.close-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #ef4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+}
+
+.power-led {
+  width: 10px;
+  height: 10px;
+  background: #10b981;
+  border-radius: 50%;
+  position: relative;
+}
+
+/* Monitor Screen */
+.monitor-screen {
+  flex: 1;
+  background: #0a0e13;
+  position: relative;
+  overflow: hidden;
+}
+
+.monitor-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(139, 92, 246, 0.02) 2px,
+    rgba(139, 92, 246, 0.02) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ================================
+   IDLE STATE
+   ================================ */
+
+.monitor-idle {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.idle-icon {
+  color: #8b5cf6;
+  margin-bottom: 30px;
+  opacity: 0.6;
+}
+
+.monitor-idle h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+.monitor-idle p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.idle-cursor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  color: #8b5cf6;
+}
+
+/* ================================
+   PROJECT DISPLAY
+   ================================ */
+
+.project-display {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #8b5cf6 #1a1f2e;
+}
+
+.project-display::-webkit-scrollbar {
+  width: 8px;
+}
+
+.project-display::-webkit-scrollbar-track {
+  background: #1a1f2e;
+}
+
+.project-display::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b5cf6, #ec4899);
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+}
+
+.project-content {
+  padding: 30px;
+}
+
+/* Boot Sequence */
+.boot-sequence {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 3px solid;
+  border-image: linear-gradient(180deg, #8b5cf6, #ec4899) 1;
+  border-radius: 4px;
+}
+
+.boot-line {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 4px;
+  line-height: 1.8;
+}
+
+.boot-time {
+  color: #64748b;
+  min-width: 60px;
+}
+
+.boot-text {
+  flex: 1;
+  color: #94a3b8;
+}
+
+.boot-status {
+  font-weight: 700;
+}
+
+/* Project Image */
+.project-image-container {
+  position: relative;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.project-display:hover .project-image {
+  transform: scale(1.05);
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Project Header */
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.project-header h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #e5efff 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid;
+  border-radius: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.project-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #94a3b8;
+  margin-bottom: 25px;
+}
+
+/* System Metrics */
+.system-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.metric-item:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.metric-item svg {
+  flex-shrink: 0;
+}
+
+.metric-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.metric-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e5efff;
+  margin: 0;
+}
+
+/* Project Tags */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.project-tag {
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.project-tag:hover {
+  background: rgba(139, 92, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Expandable Sections */
+.expandable-sections {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.expand-section {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.expand-section.expanded {
+  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.05);
+}
+
+.expand-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e5efff;
+  transition: all 0.3s ease;
+  text-align: left;
+  outline: none;
+}
+
+.expand-header:hover {
+  background: rgba(139, 92, 246, 0.08);
+  color: #a78bfa;
+}
+
+.expand-header svg {
+  transition: transform 0.3s ease;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.expand-header svg.rotated {
+  transform: rotate(180deg);
+  color: #8b5cf6;
+}
+
+.expand-content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+}
+
+.expand-content.show {
+  padding: 18px;
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.expand-content p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.expand-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.expand-content li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 2px solid rgba(139, 92, 246, 0.3);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.expand-content li:hover {
+  background: rgba(139, 92, 246, 0.05);
+  border-left-color: #8b5cf6;
+  transform: translateX(5px);
+}
+
+.bullet {
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+/* Project Actions */
+.project-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid;
+}
+
+.action-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.action-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-btn svg {
+  position: relative;
+  z-index: 1;
+}
+
+.action-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.action-btn.primary {
+  color: #e5efff;
+}
+
+.action-btn.secondary {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.3);
+  color: #06b6d4;
+}
+
+.action-btn.secondary::before {
+  background: rgba(6, 182, 212, 0.2);
+}
+
+.action-btn.secondary:hover {
+  background: rgba(6, 182, 212, 0.2);
+  border-color: #06b6d4;
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 1200px) {
+  .projects-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .server-rack-container,
+  .monitor-container {
+    position: relative;
+    top: 0;
+  }
+
+  .server-rack,
+  .monitor-frame {
+    height: auto;
+    max-height: 700px;
+  }
+
+  .server-rack.expanded {
+    max-height: 750px;
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-section {
+    padding: 60px 0;
+  }
+
+  .projects-container {
+    padding: 0 20px;
+  }
+
+  .projects-header h2 {
+    font-size: 2rem;
+  }
+
+  .projects-filters {
+    gap: 8px;
+  }
+
+  .filter-btn-pro {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+  }
+
+  .server-rack,
+  .monitor-frame {
+    max-height: 600px;
+    border-radius: 16px;
+  }
+
+  .server-rack.expanded {
+    max-height: 650px;
+  }
+
+  .server-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .server-leds {
+    flex-direction: row;
+  }
+
+  .server-title {
+    font-size: 0.85rem;
+  }
+
+  .server-chip {
+    font-size: 0.6rem;
+    padding: 2px 5px;
+  }
+
+  .hvac-monitor {
+    margin: 15px;
+    padding: 12px;
+  }
+
+  .hvac-bar {
+    width: 70px;
+  }
+
+  .system-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .project-actions {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ================================
+   PERFORMANCE & ACCESSIBILITY
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode optimization */
+@media (prefers-color-scheme: light) {
+  .projects-section {
+    background: #f8fafc;
+  }
+  
+  .server-rack,
+  .monitor-frame {
+    background: #ffffff;
+    border-color: #e5e7eb;
+  }
+  
+  .server-card {
+    background: #f9fafb;
+    border-color: #e5e7eb;
+  }
+}
+/* ================================
+   HVAC MODAL - INTERACTIVE COOLING EDUCATION
+   ================================ */
+
+/* Clickable hint on HVAC header */
+.hvac-clickable {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.hvac-clickable:hover {
+  background: rgba(6, 182, 212, 0.12);
+  transform: translateY(-2px);
+}
+
+.hvac-expand-hint {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #06b6d4;
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+/* Modal Overlay */
+.hvac-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Modal Content */
+.hvac-modal-content {
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  border: 2px solid rgba(6, 182, 212, 0.3);
+  border-radius: 20px;
+  max-width: 1200px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 
+    0 0 80px rgba(6, 182, 212, 0.3),
+    inset 0 0 40px rgba(0, 0, 0, 0.5);
+  scrollbar-width: thin;
+  scrollbar-color: #06b6d4 #1a1f2e;
+}
+
+.hvac-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.hvac-modal-content::-webkit-scrollbar-track {
+  background: #1a1f2e;
+}
+
+.hvac-modal-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #06b6d4, #0ea5e9);
+  border-radius: 4px;
+}
+
+/* Modal Header */
+.hvac-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+  border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.hvac-modal-title-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hvac-modal-icon {
+  color: #06b6d4;
+  animation: windSpin 4s linear infinite;
+}
+
+.hvac-modal-title-section h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 5px 0;
+}
+
+.hvac-modal-title-section p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.hvac-modal-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hvac-modal-close:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #ef4444;
+  transform: rotate(90deg);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+
+/* Fans Section */
+.hvac-fans-section {
+  padding: 30px;
+  border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.hvac-fans-section h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  color: #e5efff;
+  margin: 0 0 25px 0;
+}
+
+.hvac-fans-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.hvac-fan-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: rgba(6, 182, 212, 0.05);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.hvac-fan-container:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2);
+}
+
+/* Fan Animation */
+.hvac-fan {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.1), transparent);
+}
+
+.fan-blade {
+  position: absolute;
+  width: 40%;
+  height: 8px;
+  background: linear-gradient(90deg, #06b6d4, transparent);
+  top: 50%;
+  left: 50%;
+  transform-origin: left center;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.fan-center {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 15px rgba(6, 182, 212, 0.8),
+    inset 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.fan-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.fan-rpm {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #06b6d4;
+  font-weight: 700;
+}
+
+/* Airflow Visualization */
+.airflow-visualization {
+  position: relative;
+  height: 100px;
+  background: linear-gradient(90deg, 
+    rgba(6, 182, 212, 0.1) 0%,
+    transparent 50%,
+    rgba(239, 68, 68, 0.1) 100%
+  );
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.airflow-label {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.airflow-particles {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.airflow-particle {
+  position: absolute;
+  left: 0;
+  width: 8px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #06b6d4, transparent);
+  border-radius: 2px;
+  filter: blur(1px);
+}
+
+/* Info Section */
+.hvac-info-section {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.hvac-info-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 12px;
+  padding: 25px;
+  transition: all 0.3s ease;
+}
+
+.hvac-info-card:hover {
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.hvac-info-card.critical {
+  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.hvac-info-card.stats {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+  color: #06b6d4;
+}
+
+.info-card-header h4 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.2rem;
+  color: #e5efff;
+  margin: 0;
+}
+
+/* Info List */
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 3px solid rgba(239, 68, 68, 0.5);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.info-list li:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-left-color: #ef4444;
+  transform: translateX(5px);
+}
+
+.info-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.info-list strong {
+  color: #e5efff;
+  font-weight: 700;
+}
+
+.info-list div {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+/* Temperature Ranges */
+.temp-ranges {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.temp-range-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.temp-range-item.optimal .temp-label {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.temp-bar {
+  flex: 1;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.temp-bar.cold {
+  background: linear-gradient(90deg, #06b6d4, #0ea5e9);
+}
+
+.temp-bar.ideal {
+  background: linear-gradient(90deg, #10b981, #34d399);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+.temp-bar.warm {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.temp-bar.danger {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.temp-marker {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.temp-label {
+  min-width: 180px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* Humidity Info */
+.humidity-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 8px;
+  color: #06b6d4;
+}
+
+.humidity-info strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #e5efff;
+}
+
+.humidity-info p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* HVAC Concepts Grid */
+.hvac-concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.concept-item {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.concept-item:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(6, 182, 212, 0.2);
+}
+
+.concept-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.concept-item h5 {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.95rem;
+  color: #e5efff;
+  margin: 0 0 10px 0;
+}
+
+.concept-item p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Energy Stats */
+.energy-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 20px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 10px;
+}
+
+.stat-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+/* Live Metrics */
+.hvac-live-metrics {
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(139, 92, 246, 0.05));
+  border-top: 2px solid rgba(6, 182, 212, 0.2);
+}
+
+.hvac-live-metrics h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  color: #e5efff;
+  margin: 0 0 20px 0;
+}
+
+.live-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.metric-card .metric-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.metric-card .metric-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hvac-fans-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hvac-concepts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .energy-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .live-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hvac-modal-content {
+    max-height: 95vh;
+  }
+
+  .hvac-modal-header {
+    padding: 20px;
+  }
+
+  .hvac-modal-title-section h3 {
+    font-size: 1.3rem;
+  }
+
+  .hvac-fans-grid,
+  .hvac-concepts-grid,
+  .live-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .temp-range-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .temp-label {
+    min-width: auto;
+  }
+}
+/* ================================
+   HVAC IN MONITOR DISPLAY
+   ================================ */
+
+/* Active state for HVAC header */
+.hvac-clickable.hvac-active {
+  background: rgba(6, 182, 212, 0.15);
+  border-left: 3px solid #06b6d4;
+}
+
+/* HVAC Monitor Display Container */
+.hvac-monitor-display {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #06b6d4 #1a1f2e;
+}
+
+.hvac-monitor-display::-webkit-scrollbar {
+  width: 8px;
+}
+
+.hvac-monitor-display::-webkit-scrollbar-track {
+  background: #1a1f2e;
+}
+
+.hvac-monitor-display::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #06b6d4, #0ea5e9);
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+}
+
+.hvac-monitor-content {
+  padding: 20px;
+}
+
+/* HVAC Monitor Header with Back Button */
+.hvac-monitor-header {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+}
+
+.hvac-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #06b6d4;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.hvac-back-btn:hover {
+  background: rgba(6, 182, 212, 0.2);
+  border-color: #06b6d4;
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+}
+
+.hvac-monitor-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.hvac-monitor-icon {
+  color: #06b6d4;
+  animation: windSpin 4s linear infinite;
+  flex-shrink: 0;
+}
+
+.hvac-monitor-title h3 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 5px 0;
+}
+
+.hvac-monitor-title p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Compact Fans Section */
+.hvac-fans-compact {
+  margin-bottom: 25px;
+}
+
+.hvac-fans-compact h4,
+.hvac-info-compact h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: #e5efff;
+  margin: 0 0 15px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.hvac-fans-grid-monitor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.hvac-fan-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px;
+  background: rgba(6, 182, 212, 0.05);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.hvac-fan-item:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(6, 182, 212, 0.2);
+}
+
+/* Smaller Fan Animation */
+.hvac-fan-small {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.1), transparent);
+}
+
+.fan-blade-small {
+  position: absolute;
+  width: 40%;
+  height: 6px;
+  background: linear-gradient(90deg, #06b6d4, transparent);
+  top: 50%;
+  left: 50%;
+  transform-origin: left center;
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+}
+
+.fan-center-small {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 12px rgba(6, 182, 212, 0.8),
+    inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.fan-label-small {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.fan-rpm-small {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #06b6d4;
+  font-weight: 700;
+}
+
+/* Airflow Visualization in Monitor */
+.airflow-viz-monitor {
+  position: relative;
+  height: 80px;
+  background: linear-gradient(90deg, 
+    rgba(6, 182, 212, 0.1) 0%,
+    transparent 50%,
+    rgba(239, 68, 68, 0.1) 100%
+  );
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.airflow-label-monitor {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.airflow-particles-monitor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.airflow-particle-monitor {
+  position: absolute;
+  left: 0;
+  width: 6px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #06b6d4, transparent);
+  border-radius: 2px;
+  filter: blur(0.5px);
+}
+
+/* Info Cards Compact */
+.hvac-info-compact {
+  margin-bottom: 20px;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.hvac-info-compact:hover {
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hvac-info-compact.critical {
+  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.hvac-info-compact.stats {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.hvac-info-compact.live {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+/* Info Grid */
+.hvac-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.info-item-compact {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 3px solid rgba(239, 68, 68, 0.5);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.info-item-compact:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-left-color: #ef4444;
+  transform: translateX(3px);
+}
+
+.info-emoji {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.info-item-compact strong {
+  display: block;
+  color: #e5efff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.info-item-compact p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Temperature Ranges in Monitor */
+.temp-ranges-monitor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.temp-item-monitor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.temp-bar-monitor {
+  width: 100%;
+  height: 35px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.temp-bar-monitor.cold {
+  background: linear-gradient(135deg, #06b6d4, #0ea5e9);
+}
+
+.temp-bar-monitor.ideal {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+.temp-bar-monitor.warm {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.temp-bar-monitor.danger {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+.temp-item-monitor span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Humidity Note */
+.humidity-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 8px;
+  color: #06b6d4;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+}
+
+.humidity-note strong {
+  color: #e5efff;
+}
+
+/* Concepts Grid in Monitor */
+.concepts-grid-monitor {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.concept-compact {
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.concept-compact:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(6, 182, 212, 0.2);
+}
+
+.concept-emoji {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.concept-compact h5 {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  color: #e5efff;
+  margin: 0 0 6px 0;
+}
+
+.concept-compact p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Energy Stats in Monitor */
+.energy-stats-monitor {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-compact {
+  text-align: center;
+  padding: 15px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.stat-compact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(245, 158, 11, 0.2);
+}
+
+.stat-value-compact {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.stat-label-compact {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  line-height: 1.3;
+}
+
+/* Live Metrics in Monitor */
+.live-metrics-monitor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.metric-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.metric-compact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.metric-value-live {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.metric-label-live {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+/* Responsive for HVAC Monitor Display */
+@media (max-width: 1024px) {
+  .hvac-fans-grid-monitor {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .concepts-grid-monitor {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .temp-ranges-monitor {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .live-metrics-monitor {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hvac-monitor-content {
+    padding: 15px;
+  }
+
+  .hvac-monitor-title h3 {
+    font-size: 1.2rem;
+  }
+
+  .hvac-fans-grid-monitor,
+  .hvac-info-grid,
+  .concepts-grid-monitor,
+  .temp-ranges-monitor,
+  .energy-stats-monitor,
+  .live-metrics-monitor {
+    grid-template-columns: 1fr;
+  }
+
+  .hvac-fan-small {
+    width: 50px;
+    height: 50px;
+  }
+
+  .airflow-viz-monitor {
+    height: 60px;
+  }
+}
+
+/* Scrollbar styling for better UX */
+.hvac-monitor-display {
+  scroll-behavior: smooth;
+}
+
+/* Add smooth transitions */
+.hvac-monitor-display * {
+  transition: all 0.3s ease;
+}

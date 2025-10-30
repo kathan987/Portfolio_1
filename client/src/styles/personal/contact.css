@@ -1,0 +1,531 @@
+﻿/* ================================
+   CONTACT SECTION - ENHANCED v2.0
+   Added: Better form interactions, field focus effects, shimmer animations
+   ================================ */
+
+.contact-section {
+  padding: 120px 40px;
+  background: linear-gradient(180deg, #FFF8F0 0%, #FFFCF5 100%);
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  will-change: scroll-position;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.01) 2px,
+    rgba(0, 0, 0, 0.01) 4px
+  );
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================
+   HEADER - ENHANCED
+   ================================ */
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-label {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #FF5B00;
+  margin-bottom: 1.5rem;
+  padding: 8px 20px;
+  background: rgba(255, 91, 0, 0.08);
+  border-left: 3px solid #FF5B00;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.contact-label:hover {
+  background: rgba(255, 91, 0, 0.12);
+  transform: scale(1.05);
+}
+
+.contact-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  font-style: italic;
+  color: #0B0F19;
+  margin-bottom: 1.25rem;
+  line-height: 1.15;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.contact-title .title-line {
+  display: block;
+}
+
+.contact-title .accent {
+  color: #FF5B00;
+}
+
+.contact-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ================================
+   FORM WRAPPER
+   ================================ */
+
+.contact-form-wrapper {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* ================================
+   FORM - ENHANCED INTERACTIONS
+   ================================ */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeInLeft 0.8s ease-out 0.4s both;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.form-field {
+  position: relative;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ✅ NEW: Field lift on focus */
+.form-field.focused {
+  transform: translateY(-2px);
+}
+
+.form-field label {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+.form-field.focused label {
+  color: #FF5B00;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  color: #0B0F19;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(11, 15, 25, 0.15);
+  outline: none;
+  transition: border-color 0.3s ease;
+  transform: translateZ(0);
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #94a3b8;
+  opacity: 0.6;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-bottom-color: #FF5B00;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+/* ✅ NEW: Shimmer effect on focus */
+.field-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #FF5B00, #FF8F50, #FF5B00);
+  background-size: 200% 100%;
+  transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
+
+.form-field.focused .field-line {
+  width: 100%;
+}
+
+/* ================================
+   SUBMIT BUTTON - ENHANCED
+   ================================ */
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 40px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 24px;
+  background: #FF5B00;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  align-self: flex-start;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  box-shadow: 0 6px 20px rgba(255, 91, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ✅ NEW: Gradient overlay on hover */
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #FF8F50, #FF5B00);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.submit-btn:hover::before {
+  opacity: 1;
+}
+
+.submit-btn:hover:not(:disabled) {
+  box-shadow: 0 12px 36px rgba(255, 91, 0, 0.4);
+  transform: translateY(-4px) scale(1.02);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(-2px) scale(0.98);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-content svg {
+  transition: transform 0.3s ease;
+}
+
+.submit-btn:hover:not(:disabled) .btn-content svg {
+  transform: translateX(4px) rotate(15deg);
+}
+
+/* ================================
+   CONTACT INFO SIDEBAR - ENHANCED
+   ================================ */
+
+.contact-info {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 40px 32px;
+  border-radius: 16px;
+  border: 1px solid rgba(11, 15, 25, 0.08);
+  position: sticky;
+  top: 120px;
+  animation: fadeInRight 0.8s ease-out 0.6s both;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.contact-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #0B0F19;
+  margin-bottom: 1rem;
+}
+
+.contact-info > p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.info-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba(11, 15, 25, 0.06);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateZ(0);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ✅ NEW: Hover background effect */
+.info-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 91, 0, 0.05), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.info-item:hover::before {
+  opacity: 1;
+}
+
+.info-item:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 91, 0, 0.2);
+  transform: translateX(6px) scale(1.02);
+  box-shadow: 0 4px 16px rgba(255, 91, 0, 0.1);
+}
+
+.info-item svg {
+  width: 24px;
+  height: 24px;
+  color: #FF5B00;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.info-item:hover svg {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.info-item > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+}
+
+.info-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0B0F19;
+}
+
+.availability-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #059669;
+  transition: all 0.3s ease;
+}
+
+.availability-badge:hover {
+  background: rgba(16, 185, 129, 0.15);
+  transform: scale(1.05);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 0.6; 
+    transform: scale(1.2); 
+  }
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 968px) {
+  .contact-form-wrapper {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .contact-info {
+    position: relative;
+    top: 0;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 100px 20px;
+  }
+
+  .contact-header {
+    margin-bottom: 3rem;
+  }
+
+  .contact-form {
+    gap: 1.75rem;
+  }
+
+  .contact-info {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-section {
+    padding: 80px 16px;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    padding: 12px 0;
+    font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    padding: 14px 32px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .submit-btn:hover,
+  .info-item:hover,
+  .form-field.focused {
+    transform: none;
+  }
+
+  .shimmer,
+  .pulse {
+    animation: none !important;
+  }
+}

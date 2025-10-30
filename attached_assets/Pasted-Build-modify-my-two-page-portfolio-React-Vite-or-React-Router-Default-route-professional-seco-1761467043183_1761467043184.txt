@@ -1,0 +1,230 @@
+Build/modify my two-page portfolio (React/Vite or React/Router). Default route = /professional, second route = /personal (personal can stay placeholder). Focus this pass on the Professional page per specs below.
+
+Assets (I’ve uploaded to public/images/):
+
+/images/pro-hero-bg-dark.png (plain dark texture)
+
+/images/profile-kathan.jpg
+
+/images/logo-fanshawe.png
+
+/images/logo-home2suites.png
+
+(optional logos) /images/logo-cisco.svg, /images/logo-comptia.svg, /images/logo-google.svg
+
+Global
+
+Create CSS tokens in src/styles/global.css and use everywhere:
+
+:root{
+  --primary:#2C3E50; --secondary:#3498DB; --accent:#E74C3C;
+  --bg:#0f141a; --text:#e9eef5; --muted:#C9D6DF; --neutral:#ECF0F1;
+  --sun:#FFD166; --shadow:0 8px 24px rgba(0,0,0,.18);
+}
+body{ background:#fff; color:#34495E; font-family:"Source Sans Pro",system-ui,sans-serif;}
+h1,h2,h3{ font-family:"Montserrat",system-ui,sans-serif;}
+
+
+Add src/styles/animations.css and import once in the app:
+
+@media (prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s;}
+  .reveal.in-view{opacity:1;transform:none;}
+  .reveal-down{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s;}
+  .reveal-down.in-view{opacity:1;transform:none;}
+  .sway-slow{animation:sway 16s ease-in-out infinite alternate;}
+  .sway-med{animation:sway 12s ease-in-out infinite alternate;}
+  @keyframes sway{from{transform:translateY(-6px) rotate(-.4deg);}to{transform:translateY(6px) rotate(.4deg);}}
+  .fade-slide{animation:fs .38s ease-in-out;}
+  @keyframes fs{from{opacity:0;transform:translateX(12px);}to{opacity:1;transform:none;}}
+}
+
+
+Add src/hooks/useReveal.js (IntersectionObserver):
+
+import {useEffect, useRef} from "react";
+export default function useReveal(cls="in-view", options={threshold:.2}){
+  const ref = useRef(null);
+  useEffect(()=>{ const el=ref.current; if(!el) return;
+    const io=new IntersectionObserver(([e])=>{ if(e.isIntersecting) el.classList.add(cls); }, options);
+    io.observe(el); return ()=>io.disconnect();
+  },[]); return ref;
+}
+
+Routing / Layout
+
+Use React Router. App.jsx routes:
+
+<Routes>
+  <Route path="/" element={<Navigate to="/professional" replace/>}/>
+  <Route path="/professional" element={<div className="fade-slide"><Professional/></div>} />
+  <Route path="/personal" element={<div className="fade-slide"><Personal/></div>} />
+</Routes>
+
+
+Header has toggle buttons: Professional (active by default) | Personal with smooth fade/slide on route change. Preserve per-page scroll with ScrollRestoration or custom state.
+
+Professional Page — HERO + Profile Summary
+
+Create/modify src/pages/Professional.jsx and src/styles/hero.css (import).
+
+Hero requirements:
+
+Full-width section with plain dark background: background: url("/images/pro-hero-bg-dark.png") center/cover, linear-gradient( to bottom, rgba(0,0,0,.72), rgba(0,0,0,.72)); Text color white.
+
+Hanging cables (SVG) absolutely positioned at the top, behind content (z-index:0; opacity:.45):
+
+Path A = yellow Ethernet stroke:#FFD166; stroke-width:3; add class .sway-slow.
+
+Path B = blue console stroke:#3498DB; stroke-width:3; add class .sway-med.
+
+2–3 cubic Bézier wires spanning left→right. No heavy filters.
+
+Content wrapper on top (z-index:1) with:
+
+H1: “Computer Systems Technician”
+
+H2/subhead: “Network & Systems Specialist”
+
+Chips row: Windows/Linux, DHCP/DNS, Active Directory, Virtualization, Cloud Computing (existing style ok).
+
+CTAs: Download Resume (primary), View Projects (secondary).
+
+Profile Summary block directly under hero CTAs:
+
+Two-column grid (image left 180px round; text right). Mobile stacks.
+
+Image: /images/profile-kathan.jpg with soft shadow.
+
+H3: “Profile Summary” + 3–4 concise sentences (use my current subhead tone).
+
+Education & Certs (correct dates)
+
+In Education section:
+
+Replace degree card with:
+“Diploma in Computer Systems Technician” — Fanshawe College — 2023 – 2025 — note “Network & Systems specialization”.
+
+Replace certification card with:
+“CompTIA A+ Certification” — CompTIA — Oct 2025 — note “Core 1 & Core 2”.
+
+Skills & Tools (animated reveal)
+
+In the Skills & Tools section, apply scroll reveals: headings get .reveal, each category card gets .reveal-down with useReveal() hook to toggle in-view. Respect prefers-reduced-motion.
+
+Tools & Technologies (Proficient vs Familiar)
+
+Convert the “Tools & Technologies” area into two lists under the terminal-style header. Keep a small dark card for flavor text:
+
+Proficient: Windows 10/11; Windows Server 2019/2022; Ubuntu/Kali/CentOS; Active Directory & Group Policy; DNS/DHCP; VMware; Hyper-V; Azure AD; Intune; AWS (EC2/S3/IAM); PowerShell; Bash; Python; Wireshark; Nmap; Tera Term; Palo Alto (policies/NAT/VPN); pfSense; SysAid; Remote Desktop/TeamViewer; Git; GitHub; VS Code.
+
+Familiar: Ansible; Terraform; Docker; GA4; Google Search Console; Cisco IOS basics.
+
+Render as pill chips with wrapping. No typing animation.
+
+Projects (replace all; 8 cards)
+
+Overwrite the project list with 8 cards:
+
+SQL Reporting Project — “Designed schemas and JOIN/Aggregation queries for actionable reports.” Tags: SQL, Schema Design, Reporting.
+
+Python Inventory Manager — “CLI app with low-stock alerts and CSV import/export.” Tags: Python, CLI, CSV.
+
+PowerShell AD & Printer Automation — “User creation, group membership, printer mappings via GPO logon.” Tags: PowerShell, Active Directory, GPO.
+
+SysAid Service Desk — 30+ Tickets — “Incidents/requests with SLA compliance; KB documentation.” Tags: SysAid, ITIL, Remote Support.
+
+Linux Clean Installs — “Provisioned Kali/Ubuntu/CentOS with secure defaults and scripts.” Tags: Linux, Bash, Hardening.
+
+Palo Alto Network Security — “Policies, NAT, basic VPN securing lab segments.” Tags: Palo Alto, Security, VPN.
+
+SHMC Network Architecture — “Multi-VLAN design with inter-VLAN routing and DHCP/DNS.” Tags: VLAN, Routing, DHCP/DNS.
+
+Data Center Project — “Rack layout, power/network redundancy, deployment checklist.” Tags: Data Center, Redundancy.
+
+3 per row desktop, 1 per row mobile; lazy-load images (use generic illustration if none).
+
+Experience (logos + dates)
+
+Replace timeline with two entries only:
+
+Fanshawe College — Peer Tutor & Class Representative
+Logo /images/logo-fanshawe.png (32–40px, rounded). Jan 2025 – Apr 2025
+Bullets:
+• Ran peer tutoring for core IT courses; improved pass rates.
+• Collected/relayed feedback as Class Rep.
+• Organized study materials and lab walkthroughs.
+
+Home2 Suites by Hilton — Guest Service Associate
+Logo /images/logo-home2suites.png. Jun 2025 – Present
+Bullets:
+• Managed front-desk ops and guest requests.
+• Handled POS/reservations and incident follow-ups.
+• Documented SOPs; resolved escalations.
+
+Apply .reveal-down / .reveal animations on scroll like Skills.
+
+NEW Certificates section (before footer) — bullet list with cable pointers + transitions
+
+Insert a section titled “Certificates” just above the footer.
+
+Layout: left margin shows vertical cable lines (SVG) acting as pointers to each bullet; right side shows the bullet text.
+
+Two cable types:
+
+Yellow Ethernet line (stroke:#FFD166; stroke-width:3) ending with a small RJ-45 icon (simple rectangle + 8 tiny pins).
+
+Blue Console line (stroke:#3498DB; stroke-width:3) ending with a small RJ-45 but colored blue (or a DB-9 style nub if easier).
+
+For each certificate bullet, render a horizontal row:
+
+Left: a short curved cable segment animates in (draw-on effect: stroke-dasharray + stroke-dashoffset from full to 0 over 600ms).
+
+Right: the text block fades in (opacity 0→1; translateX 8px→0) delayed 150ms after the cable draws.
+
+Items (map them alternating cable colors: yellow, blue, yellow, blue):
+
+Cisco Certified Network Associate — Equivalent Coursework
+Fanshawe College · Throughout studies — status pill “Equivalent”
+
+CompTIA A+ — CompTIA · Oct 2025 — status pill “Earned”
+
+Google IT Support — Google · Earned — status pill “Earned”
+
+CompTIA Security+ — CompTIA · Target Dec 2025 — status pill “Pursuing”
+
+Provide optional small logos on the right of each text row if available (logo-cisco.svg, logo-comptia.svg, logo-google.svg).
+
+Section is keyboard-navigable; on reduced motion, skip the draw animation and show static lines.
+
+Minimal CSS sample you must implement (adjust class names to match components):
+
+.certs{position:relative; padding:48px 0;}
+.cert-row{display:grid; grid-template-columns:72px 1fr; align-items:center; gap:16px; margin:18px 0;}
+.cert-cable svg{width:72px; height:24px; overflow:visible;}
+.cable-path{fill:none; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:120; stroke-dashoffset:120;}
+.cert-row.in-view .cable-path{stroke-dashoffset:0; transition:stroke-dashoffset .6s ease;}
+.cert-text{opacity:0; transform:translateX(8px); transition:opacity .5s ease .15s, transform .5s ease .15s;}
+.cert-row.in-view .cert-text{opacity:1; transform:none;}
+.pill{display:inline-block; padding:2px 8px; border-radius:999px; font-size:.8rem;}
+.pill.green{background:#e3f8e6;color:#18794e;} .pill.orange{background:#fff3e0;color:#a05a00;}
+.pill.gray{background:#eef2f6;color:#475569;}
+
+
+Use useReveal() to add .in-view to each .cert-row on scroll.
+
+Footer + Small Copy Cleanups
+
+Footer text: “© Kathan Thaker — Crafting systems & stories.”
+
+Keep Professional nav active; Personal route exists for later.
+
+Non-negotiables
+
+Fully responsive.
+
+WCAG focus outlines intact; color contrast ≥ 4.5:1 (adjust shades if needed).
+
+Prefer AVIF/WEBP where possible; lazy-load non-critical images.
+
+No heavy libraries for animation; pure CSS/IntersectionObserver only.
