@@ -37,7 +37,21 @@ html, body {
   body { min-height: -webkit-fill-available; }
 }
 
-@media (max-width: 968px) {
+@media (max-width: 968px) {/* FORCE ALL ELEMENTS TO STAY IN BOUNDS */
+* {
+  max-width: 100vw;
+}
+
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Contain all sections */
+section, .section-wrapper, main, article {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
   section {
     padding-top: 80px !important;
     padding-bottom: 80px !important;

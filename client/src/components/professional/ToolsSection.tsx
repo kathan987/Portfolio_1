@@ -73,7 +73,7 @@ export default function ToolsSection() {
               {new Date().toLocaleTimeString('en-US', { hour12: false })} UTC
             </div>
           </div>
-          <h2 className="tools-title">Technical Toolkit</h2>
+          <h2 className="tools-pro-title">Technical Toolkit</h2>
           <p className="tools-subtitle">Production environment tools & technologies</p>
         </div>
 

@@ -89,7 +89,7 @@
   border-radius: 6px;
 }
 
-.tools-title {
+.tools-pro-title {
   text-align: center;
   font-family: 'Courier New', monospace;
   font-size: 3rem; 
@@ -411,7 +411,7 @@
     padding: 3rem 1rem; /* 🔧 REDUCED */
   }
 
-  .tools-title {
+  .tools-pro-title {
     font-size: 2rem; /* 🔧 REDUCED */
   }
 
