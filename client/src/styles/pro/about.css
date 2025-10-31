@@ -585,3 +585,74 @@
     display: none;
   }
 }
+/* ================================
+   TERMINAL ROUNDED CORNERS FIX
+   ================================ */
+
+.about-terminal {
+  overflow: hidden !important;
+  border-radius: 16px !important;
+}
+
+.terminal-header {
+  border-radius: 16px 16px 0 0 !important;
+}
+
+.terminal-body {
+  border-radius: 0 0 16px 16px !important;
+}
+/* ================================
+   FORCE NEON GREEN ICONS - OVERRIDE
+   ================================ */
+
+.about-section .output-line svg,
+.about-section .info-item svg,
+.about-section .download-resume-btn svg,
+.about-section .contact-btn svg,
+.about-section svg {
+  color: #00ff88 !important;
+  stroke: #00ff88 !important;
+  fill: none !important;
+}
+
+.about-section .status-dot {
+  background: #00ff88 !important;
+  box-shadow: 0 0 10px #00ff88 !important;
+}
+
+.about-section .status-text {
+  color: #00ff88 !important;
+}
+
+.about-section .photo-frame {
+  border-color: #00ff88 !important;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(0, 255, 136, 0.3) !important;
+}
+
+.about-section .photo-frame:hover {
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(0, 255, 136, 0.5) !important;
+}
+
+.about-section .photo-glow {
+  background: linear-gradient(135deg, #00ff88, #00d4ff) !important;
+}
+
+.about-section .photo-corner {
+  border-color: #00d4ff !important;
+}
+
+.about-section .photo-status {
+  border-color: #00ff88 !important;
+}
+
+.about-section .prompt-symbol {
+  color: #00ff88 !important;
+}
+
+.about-section .terminal-output-footer {
+  border-left-color: #00ff88 !important;
+}

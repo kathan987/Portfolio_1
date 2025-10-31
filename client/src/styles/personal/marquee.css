@@ -1,6 +1,5 @@
 ﻿/* ================================
-   MARQUEE SECTION - ENHANCED v2.0
-   Added: Better parallax, enhanced card interactions, glow effects
+   MARQUEE SECTION - SINGLE LOOP VERSION
    ================================ */
 
 .marquee-section {
@@ -25,7 +24,7 @@
 }
 
 /* ================================
-   HEADER - ENHANCED
+   HEADER
    ================================ */
 
 .marquee-header {
@@ -54,7 +53,7 @@
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #ff5900;
+  color: #FF5B00;
   margin-bottom: 2rem;
   padding: 8px 20px;
   background: rgba(255, 91, 0, 0.08);
@@ -84,9 +83,20 @@
   display: block;
 }
 
-.header-title .accent {
+.header-title .accent,
+.header-title span.accent {
+  color: #FF5B00 !important;
+  -webkit-text-fill-color: #FF5B00 !important;
   font-style: italic;
-  color: #FF5B00;
+  background: none !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+.header-title .accent::before,
+.header-title .accent::after {
+  content: none !important;
+  background: none !important;
 }
 
 .header-description {
@@ -99,7 +109,7 @@
 }
 
 /* ================================
-   MARQUEE CONTAINER
+   MARQUEE CONTAINER - SINGLE TRACK
    ================================ */
 
 .marquee-container {
@@ -110,12 +120,8 @@
 .marquee-track {
   width: 100%;
   overflow: hidden;
-  padding: 20px 0;
+  padding: 30px 0;
   position: relative;
-}
-
-.marquee-track.top-track {
-  margin-bottom: 40px;
 }
 
 .marquee-content {
@@ -125,7 +131,7 @@
 }
 
 /* ================================
-   MARQUEE CARDS - ENHANCED
+   MARQUEE CARDS
    ================================ */
 
 .marquee-card {
@@ -149,7 +155,6 @@
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ✅ ENHANCED: 3D lift with parallax */
 .marquee-card:hover {
   transform: translateY(-12px) scale(1.03) rotateY(2deg);
 }
@@ -177,7 +182,6 @@
   will-change: transform;
 }
 
-/* ✅ ENHANCED: Deeper zoom */
 .marquee-card:hover .card-image-inner img {
   transform: scale(1.08) translateZ(20px);
 }
@@ -261,7 +265,6 @@
   overflow: hidden;
 }
 
-/* ✅ NEW: Glow effect on hover */
 .card-arrow::before {
   content: '';
   position: absolute;
@@ -340,7 +343,7 @@
 }
 
 /* ================================
-   CTA LINK - ENHANCED
+   CTA LINK
    ================================ */
 
 .marquee-cta {
@@ -447,10 +450,6 @@
     padding: 28px;
   }
 
-  .marquee-track.top-track {
-    margin-bottom: 32px;
-  }
-
   .marquee-container {
     margin-bottom: 60px;
   }
@@ -510,4 +509,32 @@
   .marquee-card:hover {
     transform: none;
   }
+}
+/* ================================
+   FORCE ORANGE - MARQUEE OVERRIDE
+   ================================ */
+
+.marquee-header .accent,
+.marquee-header span.accent,
+.header-title .accent,
+.header-title span.accent,
+.header-title .title-line.accent {
+  color: #FF5B00 !important;
+  -webkit-text-fill-color: #FF5B00 !important;
+  background: none !important;
+  background-image: none !important;
+  background-clip: unset !important;
+  -webkit-background-clip: unset !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  font-style: italic;
+}
+
+.marquee-header .accent::before,
+.marquee-header .accent::after,
+.header-title .accent::before,
+.header-title .accent::after {
+  content: none !important;
+  background: none !important;
+  display: none !important;
 }

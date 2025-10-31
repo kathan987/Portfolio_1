@@ -15,7 +15,6 @@ export default function MarqueeSection() {
   const rotateX = useTransform(cursorY, [-300, 300], [5, -5]);
   const rotateY = useTransform(cursorX, [-300, 300], [-5, 5]);
 
-  // ✅ ENHANCED: Optimized mouse tracking
   useEffect(() => {
     let rafId: number;
     const handleMouseMove = (e: MouseEvent) => {
@@ -108,7 +107,6 @@ export default function MarqueeSection() {
         </div>
       </motion.div>
 
-      {/* ✅ ENHANCED: Better 3D perspective */}
       <motion.div
         className="marquee-container"
         style={{
@@ -116,52 +114,26 @@ export default function MarqueeSection() {
           rotateY: isHovering ? rotateY : 0,
         }}
       >
-        <div className="marquee-track top-track">
+        <div className="marquee-track">
           <motion.div
             className="marquee-content"
             animate={{
-              x: [0, -2000]
+              x: [0, -2400]
             }}
             transition={{
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 40,
+                duration: 50,
                 ease: "linear"
               }
             }}
           >
             {allProjects.map((project, index) => (
               <MarqueeCard
-                key={`top-${index}`}
+                key={`card-${index}`}
                 project={project}
                 index={index}
-              />
-            ))}
-          </motion.div>
-        </div>
-
-        <div className="marquee-track bottom-track">
-          <motion.div
-            className="marquee-content"
-            animate={{
-              x: [-2000, 0]
-            }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 45,
-                ease: "linear"
-              }
-            }}
-          >
-            {allProjects.map((project, index) => (
-              <MarqueeCard
-                key={`bottom-${index}`}
-                project={project}
-                index={index}
-                reverse
               />
             ))}
           </motion.div>
@@ -198,10 +170,9 @@ interface MarqueeCardProps {
     year: string;
   };
   index: number;
-  reverse?: boolean;
 }
 
-const MarqueeCard: React.FC<MarqueeCardProps> = ({ project, index, reverse }) => {
+const MarqueeCard: React.FC<MarqueeCardProps> = ({ project, index }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (

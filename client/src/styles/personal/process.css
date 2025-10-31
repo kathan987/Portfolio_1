@@ -102,6 +102,25 @@
   color: #FF5B00;
   position: relative;
 }
+/* Force pure orange in the process title */
+.process-title .accent,
+.process-title span.accent {
+  color: #FF5B00 !important;
+  -webkit-text-fill-color: #FF5B00;
+  font-style: italic;
+  background: none !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+/* Kill any highlight pseudo-elements */
+.process-title .accent::before,
+.process-title .accent::after {
+  content: none !important;
+  background: none !important;
+}
+
+
 
 .process-title .accent::after {
   content: '';

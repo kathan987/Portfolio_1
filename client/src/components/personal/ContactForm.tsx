@@ -171,7 +171,7 @@ export default function ContactForm() {
           </form>
 
           {/* Contact Info Sidebar */}
-          <div className="contact-info">
+          <div className="contact-information">
             <h3>Let's Connect</h3>
             <p>I'm always open to discussing new projects, creative ideas, or opportunities.</p>
             

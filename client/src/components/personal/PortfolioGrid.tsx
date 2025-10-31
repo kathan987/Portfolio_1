@@ -1,7 +1,7 @@
 ﻿import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ProjectCascade from "./ProjectCascade";
-import { useMode } from "../../App"; // ✅ Step 1: Correctly imported
+import { useMode } from "../../App";
 import "../../styles/personal/portfolio.css";
 
 type Project = {
@@ -16,7 +16,7 @@ type Project = {
 };
 
 export default function PortfolioGrid() {
-  const { mode } = useMode(); // ✅ Step 2: Getting the current mode
+  const { mode } = useMode();
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const projects: Project[] = [
@@ -25,7 +25,7 @@ export default function PortfolioGrid() {
       description: "Complete brand identity, social media strategy, and Google SEO optimization for a premium cleaning service.",
       category: "Brand Identity",
       tags: ["Branding", "Social Media", "SEO"],
-      color: "#0B0F19",
+      color: "#1e40af",
       year: "2024",
       client: "TrueShine",
       services: ["Brand Strategy", "Visual Identity", "Digital Marketing"],
@@ -35,7 +35,7 @@ export default function PortfolioGrid() {
       description: "Exclusive brand management from logo design to complete fashion branding and visual direction.",
       category: "Brand Identity",
       tags: ["Fashion", "Branding", "Creative Direction"],
-      color: "#8B4513",
+      color: "#be123c",
       year: "2024",
       client: "Vaarso",
       services: ["Brand Identity", "Fashion Design", "Art Direction"],
@@ -45,7 +45,7 @@ export default function PortfolioGrid() {
       description: "Motion studio visual identity, content direction, and brand system for a creative production house.",
       category: "Motion & Content",
       tags: ["Motion", "Branding", "Content Strategy"],
-      color: "#1a1a1a",
+      color: "#7c3aed",
       year: "2025",
       client: "Limitless Frames",
       services: ["Visual Identity", "Motion Graphics", "Brand Guidelines"],
@@ -55,7 +55,7 @@ export default function PortfolioGrid() {
       description: "Internal automation tool with client CRM interface, built for streamlined agency workflow management.",
       category: "UI/UX",
       tags: ["UI Design", "Product Design", "SaaS"],
-      color: "#2C3E50",
+      color: "#0891b2",
       year: "2024",
       client: "Internal",
       services: ["UI/UX Design", "Product Strategy", "System Design"],
@@ -78,11 +78,9 @@ export default function PortfolioGrid() {
 
   const filteredProjects = projects.filter(matchers[activeFilter] ?? (() => true));
 
-  // ✅ Step 3: Define the accent color based on the current mode
   const accentColor = mode === 'personal' ? '#FF5B00' : '#00ff88';
 
   return (
-    // ✅ Step 4: Apply the color as an inline CSS variable to the parent section
     <section 
       className="portfolio-section" 
       id="work"
@@ -91,14 +89,22 @@ export default function PortfolioGrid() {
       <div className="portfolio-container">
         <div className="portfolio-split">
           <motion.div
-            className="left-cards" // ✅ Added class for better mobile targeting
+            className="left-cards"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <div className="cardswap-wrapper split">
-                    <ProjectCascade items={projects.map(p=>({title:p.title, subtitle:p.description, year:p.year}))} />
+              <ProjectCascade 
+                items={filteredProjects.map(p => ({
+                  title: p.title, 
+                  subtitle: p.description, 
+                  year: p.year,
+                  color: p.color
+                }))} 
+                key={activeFilter}
+              />
             </div>
           </motion.div>
 
@@ -132,7 +138,12 @@ export default function PortfolioGrid() {
                 </button>
               ))}
             </div>
-            <button className="btn-primary side-cta">View All Projects</button>
+            <button className="btn-primary side-cta">
+              View All Projects
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
           </motion.aside>
         </div>
       </div>
