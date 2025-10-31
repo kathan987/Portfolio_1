@@ -10,7 +10,6 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   plugins: [
     react(),
-    // Gzip compression
     viteCompression({
       verbose: true,
       disable: false,
@@ -18,7 +17,6 @@ export default defineConfig({
       algorithm: 'gzip',
       ext: '.gz',
     }),
-    // Brotli compression
     viteCompression({
       verbose: true,
       disable: false,
@@ -35,6 +33,7 @@ export default defineConfig({
     },
   },
   root: path.resolve(__dirname, "client"),
+  publicDir: path.resolve(__dirname, "client", "public"),
   build: {
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
@@ -54,7 +53,8 @@ export default defineConfig({
       }
     },
     sourcemap: false,
-    chunkSizeWarningLimit: 600
+    chunkSizeWarningLimit: 600,
+    cssCodeSplit: false
   },
   server: {
     port: 5173,
@@ -63,5 +63,8 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],
+  },
+  css: {
+    devSourcemap: false
   }
 });
