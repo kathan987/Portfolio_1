@@ -1,9 +1,8 @@
 /* ============================================
-   APP-LEVEL MODE TRANSITIONS & STYLES
+   APP-LEVEL BLACKOUT TRANSITIONS
    ============================================ */
 
 /* ===== RESET ===== */
-/* At the top of App.css */
 html, body {
   overflow-x: hidden !important;
   margin: 0;
@@ -17,18 +16,13 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  position: relative;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0 !important;
-  padding: 0 !important; /* ✅ NO PADDING */
-  overflow-x: hidden;
 }
 
 /* ===== APP CONTAINER ===== */
@@ -40,19 +34,16 @@ body {
               color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Professional Mode */
 .app-container.mode-professional {
   background: linear-gradient(135deg, #0b1220 0%, #1e293b 100%);
   color: #ffffff;
 }
 
-/* Personal Mode */
 .app-container.mode-personal {
   background: linear-gradient(135deg, #FFFCF5 0%, #FFF8F0 100%);
   color: #0B0F19;
 }
 
-/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
@@ -63,40 +54,37 @@ html {
   }
 }
 
-/* ===== MODE TRANSITION OVERLAY ===== */
-.mode-transition-overlay {
+/* ================================
+   BLACKOUT OVERLAY - HIDES ALL LAG
+   ================================ */
+
+.blackout-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.95);
-  z-index: 100000;
+  z-index: 999999;
   display: grid;
   place-items: center;
-  animation: fade-in 0.2s ease;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.blackout-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
 }
 
-.mode-transition-content {
-  width: 100%;
-  max-width: 600px;
-  padding: 20px;
+.blackout-content {
+  text-align: center;
+  animation: fadeInScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.mode-transition-terminal {
-  background: #1a1f2e;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-  animation: scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes scale-in {
+@keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
@@ -104,72 +92,113 @@ html {
   }
 }
 
-.terminal-window {
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.terminal-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: #0f1419;
-  border-bottom: 1px solid #2a3444;
-}
-
-.terminal-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
+.blackout-spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1.5rem;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #00ff88;
   border-radius: 50%;
+  animation: spinBlackout 0.8s linear infinite;
 }
 
-.dot-red { background: #ff5f56; }
-.dot-yellow { background: #ffbd2e; }
-.dot-green { background: #27c93f; }
-
-.terminal-title {
-  font-size: 0.75rem;
-  color: #64748b;
+[data-mode="personal"] .blackout-spinner {
+  border-color: rgba(11, 15, 25, 0.15);
+  border-top-color: #FF5B00;
 }
 
-.terminal-body {
-  padding: 24px;
-  color: #94a3b8;
-  font-size: 0.9rem;
+@keyframes spinBlackout {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.terminal-line {
-  margin-bottom: 8px;
-  animation: fade-in-line 0.3s ease forwards;
-  opacity: 0;
-}
-
-.terminal-line:nth-child(1) { animation-delay: 0s; }
-.terminal-line:nth-child(2) { animation-delay: 0.1s; }
-.terminal-line:nth-child(3) { animation-delay: 0.2s; }
-.terminal-line:nth-child(4) { animation-delay: 0.3s; }
-
-@keyframes fade-in-line {
-  to { opacity: 1; }
-}
-
-.prompt {
+.blackout-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 600;
   color: #00ff88;
-  font-weight: 700;
-  margin-right: 8px;
+  letter-spacing: 0.5px;
+  margin: 0;
 }
 
-.terminal-line.success {
-  color: #10b981;
-  font-weight: 700;
+[data-mode="personal"] .blackout-text {
+  color: #FF5B00;
 }
 
-/* ===== PAGE LOADER ===== */
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .blackout-spinner {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .blackout-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* ================================
+   CONTENT VISIBILITY CONTROL
+   ================================ */
+
+.app-content {
+  transition: opacity 0.4s ease;
+}
+
+.app-content.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.app-content.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ================================
+   NAVIGATION LOADING BAR
+   ================================ */
+
+.nav-loading-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  z-index: 100;
+}
+
+.nav-loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff88, #00d4ff);
+  animation: loadingBarProgress 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+[data-mode="personal"] .nav-loading-bar-fill {
+  background: linear-gradient(90deg, #FF5B00, #FF8F50);
+  box-shadow: 0 0 10px rgba(255, 91, 0, 0.5);
+}
+
+@keyframes loadingBarProgress {
+  0% {
+    width: 0%;
+    opacity: 1;
+  }
+  70% {
+    width: 70%;
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
+}
+
+/* ===== PAGE LOADER (for lazy loading fallback) ===== */
 .page-loader {
   position: fixed;
   inset: 0;
@@ -207,8 +236,9 @@ html {
 /* ===== ACCESSIBILITY ===== */
 @media (prefers-reduced-motion: reduce) {
   .app-container,
-  .mode-transition-terminal,
-  .terminal-line,
+  .blackout-overlay,
+  .blackout-content,
+  .blackout-spinner,
   .loader-spinner {
     animation: none !important;
     transition: none !important;
@@ -217,13 +247,7 @@ html {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .mode-transition-content {
-    padding: 16px;
-    max-width: 90%;
-  }
-  
-  .terminal-body {
-    padding: 16px;
-    font-size: 0.8rem;
+  .blackout-content {
+    padding: 1rem;
   }
 }

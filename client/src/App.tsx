@@ -47,10 +47,8 @@ const ScrollToTop: React.FC = React.memo(() => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // ✅ Smooth scroll to top on route change
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     
-    // ✅ Also scroll container if it exists
     const mainContent = document.querySelector('.main-content');
     if (mainContent) {
       mainContent.scrollTop = 0;
@@ -66,6 +64,7 @@ ScrollToTop.displayName = 'ScrollToTop';
 export default function App() {
   const [mode, setMode] = useState<Mode>('professional');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showContent, setShowContent] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
 
@@ -75,7 +74,6 @@ export default function App() {
       const mobile = window.innerWidth < 968;
       setIsMobile(mobile);
       
-      // Add class to body for mobile-specific styles
       if (mobile) {
         document.body.classList.add('mobile-device');
       } else {
@@ -91,7 +89,6 @@ export default function App() {
 
   // ✅ PREVENT HORIZONTAL SCROLL
   useEffect(() => {
-    // Prevent horizontal overflow on mount
     document.documentElement.style.overflowX = 'hidden';
     document.body.style.overflowX = 'hidden';
     
@@ -101,46 +98,49 @@ export default function App() {
     };
   }, []);
 
-  // ===== SYNC MODE WITH ROUTE =====
+  // ===== SYNC MODE WITH ROUTE - SMOOTH BLACKOUT TRANSITION =====
   useEffect(() => {
-    if (location.pathname === '/personal') {
-      setMode('personal');
-    } else if (location.pathname === '/professional') {
-      setMode('professional');
+    const newMode = location.pathname === '/personal' ? 'personal' : 
+                    location.pathname === '/professional' ? 'professional' : mode;
+    
+    if (newMode !== mode) {
+      // Start blackout transition
+      setIsTransitioning(true);
+      setShowContent(false);
+      
+      // Change mode while screen is black
+      setTimeout(() => {
+        setMode(newMode);
+      }, 300);
+      
+      // Reveal new content
+      setTimeout(() => {
+        setShowContent(true);
+        setIsTransitioning(false);
+      }, 700);
     }
   }, [location.pathname]);
 
   // ===== MEMOIZED TOGGLE MODE =====
   const toggleMode = useCallback(() => {
-    setIsTransitioning(true);
-    
-    // ✅ Shorter transition on mobile for performance
-    const transitionDuration = isMobile ? 200 : 300;
-    
-    requestAnimationFrame(() => {
-      setMode((prev) => (prev === 'professional' ? 'personal' : 'professional'));
-      setTimeout(() => setIsTransitioning(false), transitionDuration);
-    });
-  }, [isMobile]);
+    // Transition is handled by route change effect
+  }, []);
 
   // ===== UPDATE BODY CLASSES & THEME COLOR =====
   useEffect(() => {
     const body = document.body;
     const html = document.documentElement;
     
-    // Set mode attributes
     body.setAttribute('data-mode', mode);
     html.setAttribute('data-mode', mode);
     body.className = `mode-${mode}${isMobile ? ' mobile-device' : ''}`;
     
-    // Add transitioning class
     if (isTransitioning) {
       body.classList.add('is-transitioning');
     } else {
       body.classList.remove('is-transitioning');
     }
     
-    // ✅ Update theme color dynamically
     const themeColor = mode === 'professional' ? '#0B1118' : '#FFFCF5';
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');
     
@@ -152,7 +152,6 @@ export default function App() {
     
     metaThemeColor.setAttribute('content', themeColor);
     
-    // ✅ Update iOS status bar color
     let appleStatusBar = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
     if (appleStatusBar) {
       appleStatusBar.setAttribute(
@@ -164,10 +163,9 @@ export default function App() {
 
   // ===== KEYBOARD SHORTCUTS (DESKTOP ONLY) =====
   useEffect(() => {
-    if (isMobile) return; // ✅ Disable keyboard shortcuts on mobile
+    if (isMobile) return;
     
     const handleKeyPress = (e: KeyboardEvent) => {
-      // Ctrl+Shift+M - Toggle mode
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'M') {
         e.preventDefault();
         toggleMode();
@@ -184,7 +182,6 @@ export default function App() {
     if (!isMobile) return;
     
     const handleOrientationChange = () => {
-      // Force layout recalculation on orientation change
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
       }, 100);
@@ -244,59 +241,34 @@ export default function App() {
       <div className={`app-container mode-${mode}`} data-mode={mode}>
         <ScrollToTop />
         
-        {/* Transition Overlay - Simplified on Mobile */}
-        {isTransitioning && !isMobile && (
-          <div className="mode-transition-overlay">
-            <div className="mode-transition-content">
-              <div className="mode-transition-terminal">
-                <div className="terminal-window">
-                  <div className="terminal-header">
-                    <div className="terminal-dots">
-                      <span className="dot dot-red"></span>
-                      <span className="dot dot-yellow"></span>
-                      <span className="dot dot-green"></span>
-                    </div>
-                    <span className="terminal-title">system-control</span>
-                  </div>
-                  <div className="terminal-body">
-                    <div className="terminal-line">
-                      <span className="prompt">$</span> sudo systemctl restart portfolio
-                    </div>
-                    <div className="terminal-line">
-                      [  OK  ] Stopping {mode} mode...
-                    </div>
-                    <div className="terminal-line">
-                      [  OK  ] Starting {mode === 'professional' ? 'personal' : 'professional'} mode...
-                    </div>
-                    <div className="terminal-line success">
-                      ✓ Mode switch complete
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {/* Blackout Transition Overlay */}
+        <div 
+          className={`blackout-overlay ${isTransitioning ? 'active' : ''}`}
+          style={{
+            background: mode === 'professional' 
+              ? 'linear-gradient(135deg, #0a0e13 0%, #1a1f2e 100%)'
+              : 'linear-gradient(135deg, #FFFCF5 0%, #FFF8F0 100%)'
+          }}
+        >
+          <div className="blackout-content">
+            <div className="blackout-spinner"></div>
+            <p className="blackout-text">
+              {mode === 'professional' ? 'Loading Technical Mode' : 'Loading Creative Mode'}
+            </p>
           </div>
-        )}
-
-        {/* ✅ Simple Transition Overlay for Mobile */}
-        {isTransitioning && isMobile && (
-          <div className="mode-transition-overlay mobile-transition">
-            <div className="simple-loader">
-              <div className="loader-spinner" />
-              <p>Switching mode...</p>
-            </div>
-          </div>
-        )}
+        </div>
         
-        {/* Routes */}
-        <Suspense fallback={<PageLoader />}>
-          <Routes location={location}>
-            <Route path="/" element={<Landing />} />
-            <Route path="/professional" element={<ProfessionalPage />} />
-            <Route path="/personal" element={<PersonalPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Suspense>
+        {/* Content - Hidden during transition */}
+        <div className={`app-content ${showContent ? 'visible' : 'hidden'}`}>
+          <Suspense fallback={<PageLoader />}>
+            <Routes location={location}>
+              <Route path="/" element={<Landing />} />
+              <Route path="/professional" element={<ProfessionalPage />} />
+              <Route path="/personal" element={<PersonalPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
+        </div>
       </div>
     </ModeContext.Provider>
   );

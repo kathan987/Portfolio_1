@@ -1,34 +1,53 @@
 @import './styles/shared/mobile-responsive.css';
+
 /* ================================
    PERSONAL PORTFOLIO - ROOT FOUNDATION
-   Cinematic Canvas Setup
    ================================ */
-/* FORCE RESPONSIVE BASE */
+
+/* ===== CRITICAL BASE - FIXED ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 html {
-  font-size: clamp(14px, 2vw, 16px); /* Scales with screen */
+  font-size: 16px;
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
 }
 
 body {
-  max-width: 100vw;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #0B0F19;
+  background: #FFFCF5;
+  max-width: 100vw !important;
   overflow-x: hidden !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  min-height: 100vh;
 }
 
 #root {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-/* ===== MODERN CSS RESET ===== */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  min-height: 100vh;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+  position: relative;
 }
 
-/* ===== ROOT VARIABLES - PERSONAL THEME ===== */
+/* ===== ROOT VARIABLES ===== */
 :root {
-  /* COLOR PALETTE - Warm Editorial */
   --color-bg-cream: #FFFCF5;
   --color-bg-warm: #FFF8ED;
   --color-bg-paper: #FAF8F3;
@@ -45,7 +64,6 @@ body {
   --color-border-light: rgba(11, 15, 25, 0.08);
   --color-border-medium: rgba(11, 15, 25, 0.15);
   
-  /* SHADOWS - Layered Depth */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
@@ -54,7 +72,6 @@ body {
   --shadow-accent: 0 8px 24px rgba(255, 91, 0, 0.2);
   --shadow-accent-hover: 0 16px 48px rgba(255, 91, 0, 0.3);
   
-  /* SPACING SCALE */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
@@ -62,7 +79,6 @@ body {
   --space-xl: 6rem;
   --space-2xl: 8rem;
   
-  /* TYPOGRAPHY SCALE */
   --font-display: 'Playfair Display', serif;
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -77,7 +93,6 @@ body {
   --text-4xl: 3rem;
   --text-5xl: 4rem;
   
-  /* TRANSITIONS - Cinematic Easing */
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
   --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
@@ -88,14 +103,12 @@ body {
   --duration-slow: 0.5s;
   --duration-slower: 0.8s;
   
-  /* BORDER RADIUS */
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
   --radius-xl: 2rem;
   --radius-full: 9999px;
   
-  /* Z-INDEX LAYERS */
   --z-base: 1;
   --z-dropdown: 10;
   --z-sticky: 100;
@@ -103,33 +116,12 @@ body {
   --z-modal: 10000;
 }
 
-/* ===== HTML & BODY SETUP ===== */
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
-  overflow-x: hidden;
-}
-
-body {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  line-height: 1.6;
-  color: var(--color-text-primary);
-  background: var(--color-bg-cream);
-  overflow-x: hidden;
-  position: relative;
-  min-height: 100vh;
-}
-
-/* ===== SMOOTH SCROLL WITH OFFSET ===== */
+/* ===== SMOOTH SCROLL ===== */
 html {
   scroll-padding-top: 100px;
 }
 
-/* ===== HEADINGS RESET ===== */
+/* ===== HEADINGS ===== */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.2;
@@ -165,7 +157,7 @@ img {
   image-rendering: crisp-edges;
 }
 
-/* ===== BUTTONS RESET ===== */
+/* ===== BUTTONS ===== */
 button,
 input,
 select,
@@ -204,7 +196,7 @@ select {
   color: inherit;
 }
 
-/* ===== SELECTION STYLING ===== */
+/* ===== SELECTION ===== */
 ::selection {
   background: var(--color-accent-primary);
   color: white;
@@ -217,7 +209,7 @@ select {
   text-shadow: none;
 }
 
-/* ===== SCROLLBAR - PERSONAL MODE ===== */
+/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -229,29 +221,20 @@ select {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    var(--color-accent-secondary),
-    var(--color-accent-primary)
-  );
+  background: linear-gradient(180deg, var(--color-accent-secondary), var(--color-accent-primary));
   border-radius: 6px;
   border: 2px solid var(--color-bg-paper);
   transition: background var(--duration-base) ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    180deg,
-    var(--color-accent-primary),
-    #e64f00
-  );
+  background: linear-gradient(180deg, var(--color-accent-primary), #e64f00);
 }
 
 ::-webkit-scrollbar-thumb:active {
   background: var(--color-accent-primary);
 }
 
-/* Firefox scrollbar */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-accent-primary) var(--color-bg-paper);
@@ -270,7 +253,6 @@ select {
   border-width: 0;
 }
 
-/* Focus styles */
 :focus-visible {
   outline: 2px solid var(--color-accent-primary);
   outline-offset: 4px;
@@ -289,23 +271,21 @@ select {
   }
 }
 
-/* ===== DARK MODE PREFERENCE ===== */
+/* ===== DARK MODE ===== */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg-cream: #0f0f0f;
     --color-bg-warm: #1a1a1a;
     --color-bg-paper: #141414;
-    
     --color-text-primary: #f5f5f5;
     --color-text-secondary: #cbd5e0;
     --color-text-muted: #94a3b8;
-    
     --color-border-light: rgba(255, 255, 255, 0.1);
     --color-border-medium: rgba(255, 255, 255, 0.15);
   }
 }
 
-/* ===== HIGH CONTRAST MODE ===== */
+/* ===== HIGH CONTRAST ===== */
 @media (prefers-contrast: high) {
   :root {
     --color-text-primary: #000000;
@@ -315,7 +295,7 @@ select {
   }
 }
 
-/* ===== PRINT STYLES ===== */
+/* ===== PRINT ===== */
 @media print {
   body {
     background: white !important;
@@ -329,4 +309,22 @@ select {
   img {
     max-width: 100% !important;
   }
+}
+
+/* ================================
+   PRODUCTION BUILD FIX
+   ================================ */
+
+html, body, #root {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+section, div, main, article, header, footer {
+  max-width: 100%;
+}
+
+img, video, svg, canvas {
+  max-width: 100% !important;
+  height: auto !important;
 }

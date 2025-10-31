@@ -5,15 +5,14 @@ import { Github, Linkedin, Instagram, Code, Palette } from "lucide-react";
 import "../../styles/shared/nav.css";
 
 const Navigation = memo(() => {
-  const { mode, setMode } = useMode();
+  const { mode, setMode, isTransitioning } = useMode();
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleToggle = useCallback((newMode: 'professional' | 'personal') => {
     if (mode === newMode && location.pathname === `/${newMode}`) return;
-    setMode(newMode);
     navigate(`/${newMode}`);
-  }, [mode, location.pathname, setMode, navigate]);
+  }, [mode, location.pathname, navigate]);
 
   const handleHomeClick = useCallback(() => navigate('/'), [navigate]);
 
@@ -31,6 +30,12 @@ const Navigation = memo(() => {
 
   return (
     <header className="nav-shell" data-mode={mode}>
+      {isTransitioning && (
+        <div className="nav-loading-bar">
+          <div className="nav-loading-bar-fill"></div>
+        </div>
+      )}
+      
       <div className="nav-topline" aria-hidden="true">
         <div className="data-packet" />
       </div>
@@ -48,11 +53,21 @@ const Navigation = memo(() => {
               className="toggle-slider"
               style={{ transform: mode === 'professional' ? 'translateX(0%)' : 'translateX(calc(100% - 4px))' }}
             />
-            <button type="button" className={`toggle-option ${mode === 'professional' ? 'active' : ''}`} onClick={() => handleToggle('professional')}>
+            <button 
+              type="button" 
+              className={`toggle-option ${mode === 'professional' ? 'active' : ''}`} 
+              onClick={() => handleToggle('professional')}
+              disabled={isTransitioning}
+            >
               <Code size={14} />
               <span className="toggle-label">Technical</span>
             </button>
-            <button type="button" className={`toggle-option ${mode === 'personal' ? 'active' : ''}`} onClick={() => handleToggle('personal')}>
+            <button 
+              type="button" 
+              className={`toggle-option ${mode === 'personal' ? 'active' : ''}`} 
+              onClick={() => handleToggle('personal')}
+              disabled={isTransitioning}
+            >
               <Palette size={14} />
               <span className="toggle-label">Creative</span>
             </button>

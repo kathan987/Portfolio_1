@@ -75,3 +75,39 @@
   .icon-btn { width: 34px; height: 34px; }
   .icon-btn svg { width: 16px; height: 16px; }
 }
+/* ================================
+   NAV LOADING BAR SUPPORT
+   ================================ */
+
+.nav-container {
+  position: relative; /* Allows absolute positioning of loading bar */
+}
+
+/* Smooth color transitions for mode switching */
+.nav-container {
+  transition: 
+    background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-option,
+.icon-btn,
+.brand-text,
+.brand-dot {
+  transition: 
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease;
+}
+
+/* Ensure loading bar doesn't interfere with nav content */
+.nav-inner {
+  position: relative;
+  z-index: 10;
+}
+
+/* Loading bar styles (defined in App.css but scoped here) */
+.nav-loading-bar {
+  pointer-events: none; /* Don't interfere with clicks */
+}
