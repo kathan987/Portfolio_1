@@ -436,3 +436,33 @@ section {
     padding-right: 1rem !important;
   }
 }
+/* ========= SIZING: make laptops sane ========= */
+@media (max-width: 1536px){ html{ font-size:15px; } }   /* 15–16" */
+@media (max-width: 1366px){ html{ font-size:14px; } }   /* 13–14" */
+@media (max-width: 1280px){ html{ font-size:13.5px; } } /* tighter screens */
+
+/* ========= TOKENS YOU USED BUT DIDN'T DEFINE ========= */
+:root{
+  --space-xl: 96px; /* section vertical spacing desktop */
+  --space-lg: 64px; /* section vertical spacing tablet */
+}
+
+/* ========= SAFE MOBILE CONTAINER ADJUSTMENTS ========= */
+/* Remove the universal max-width hammer and replace with scoped rules */
+@media (max-width: 968px){
+  .container,
+  .container-wide,
+  .container-narrow{
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  img, video, canvas, svg { max-width:100%; height:auto; }
+}
+
+/* ========= OPTIONAL: clamp giant headlines (keeps your style, stops overflow) ========= */
+.hero-title,
+.contact-title{
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1.12;
+}
