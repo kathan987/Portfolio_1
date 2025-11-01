@@ -39,6 +39,20 @@ body {
   min-height: 100vh;
 }
 
+/* ✅ SCALE DESKTOP TO 80% */
+@media (min-width: 1024px) {
+  body {
+    zoom: 0.8;
+  }
+}
+
+/* ✅ Keep mobile/tablet at 100% */
+@media (max-width: 1023px) {
+  body {
+    zoom: 1;
+  }
+}
+
 #root {
   min-height: 100vh;
   max-width: 100vw !important;
